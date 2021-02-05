@@ -4,29 +4,115 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--Сортировка, поиск по таблице-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json",
+                },
+                // "bLengthChange": false,
+                "pageLength": 25,
+            });
+        });
+
+        function clickedToDelete(id) {
+            var sured = confirm("Вы уверены, что хотите удалить пользователя №" + id + "? Это действие невозможно отменить!");
+            if (sured) {
+                location.href = "user_remove?id=" + id;
+            }
+        }
+    </script>
 </head>
 <body>
 <h1>Пользователи</h1>
+<div class="container">
+    <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newuser}"
+          method="post"
+          class="needs-validation" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-4 mb-1">
+                        <label for="lastName">Никнейм</label>
+                        <input th:field="*{username}" type="text" class="form-control" id="lastName"
+                               value="" required>
+                    </div>
+
+                    <div class="col-md-4 mb-1">
+                        <label for="firstName">Пароль</label>
+                        <input th:field="*{password}" type="text" class="form-control" id="firstName" required>
+                    </div>
+
+                    <div class="col-md-4 mb-1">
+                        <label for="role">Роль</label>
+                        <select name="role" th:field="*{role}" class="form-control" id="role" required
+                                th:default="${T(com.practice3.reporter.EnumRole).ROLE_DISPATCHER}">
+                            <option th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
+                                    th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4 mb-2">
+                        <label for="surname">Фамилия</label>
+                        <input th:field="*{surname}" type="text" class="form-control" id="surname" required>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <label for="username">Имя</label>
+                        <input th:field="*{name}" type="text" class="form-control" id="username" required>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <label for="address">Отчество</label>
+                        <input th:field="*{patronymic}" type="text" class="form-control" id="address" required>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary btn btn-block mb-3" type="submit" value="Submit">Добавить
+                    пользователя
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 <form>
-    <table id="table" class="table table-striped table-hover">
+    <table id="table1" class="table table-striped table-hover">
         <thead class="thead-light">
         <tr>
-            <th class="text-justify">#</th>
-            <th class="text-justify">username</th>
-            <th class="text-justify">password</th>
-            <th class="text-justify">role</th>
+            <th class="text-justify">ID</th>
+            <th class="text-justify">Никнейм</th>
+            <th class="text-justify">Пароль</th>
+            <th class="text-justify">Роль</th>
+            <th class="text-justify">ФИО</th>
+            <th style="width: 1em" class="text-justify"></th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="user, state : ${list}">
-            <td class="align-middle"><span th:text="${state.count}"></span></td>
+        <tr th:each="user : ${list}">
+            <td class="align-middle"><span th:text="${user.id}"></span></td>
             <td class="align-middle"><span th:text="${user.username}"></span></td>
             <td class="align-middle"><span th:text="${user.password}"></span></td>
-            <td class="align-middle" th:switch="${user.getRole()}">
-                <span th:case="${T(com.practice3.reporter.EnumRole).ROLE_DISPATCHER}">Диспетчер</span>
-                <span th:case="${T(com.practice3.reporter.EnumRole).ROLE_SUPERUSER}">Суперпользователь</span>
-                <span th:case="*" th:text="${user.getRole()}"></span>
+            <td class="align-middle" th:text="${user.getRole().getDisplayValue()}"></td>
+            <td class="align-middle"><span th:text="${user.getShortName()}"></span></td>
+            <td th:onclick="'javascript:clickedToDelete(\'' + ${user.id} + '\');'">
+                <svg class="bi bi-x-square-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: inline; cursor: pointer">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z"
+                         />
+                </svg>
             </td>
         </tr>
         </tbody>

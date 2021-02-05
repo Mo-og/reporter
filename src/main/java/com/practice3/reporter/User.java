@@ -25,6 +25,8 @@ public class User {
     private List<Consultation> consultations;
 
     public String getShortName() {
+        if(surname==null||name==null||patronymic==null)
+            return "";
         return surname + ' ' + name.charAt(0) + ". " + patronymic.charAt(0) + '.'; //Иванов А. И.
     }
 
