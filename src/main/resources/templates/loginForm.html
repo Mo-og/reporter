@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container">
+        <h1>Welcome</h1>
+
+        <form class="form" enctype="multipart/form-data" th:object="${user}" method="post">
+            <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${user.username}" required placeholder="Username">
+            <input class="form-control" id="password" placeholder="********" th:field="*{password}"
+                   type="password" th:value="${user.password}" required>
+            <button type="submit" id="login-button">Login</button>
+        </form>
+    </div>
+
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="../js/script.js"></script>
+
+</body>
+</html>
