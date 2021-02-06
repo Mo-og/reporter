@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
@@ -14,18 +15,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String username;
-    private String password;
-    private EnumRole role;
-    private String surname;
-    private String name;
-    private String patronymic;
+    private String username = "";
+    private String password = "";
+    private EnumRole role = EnumRole.ROLE_DISPATCHER;
+    private String surname = "";
+    private String name = "";
+    private String patronymic = "";
 
     @OneToMany
     private List<Consultation> consultations;
 
     public String getShortName() {
-        if(surname==null||name==null||patronymic==null)
+        if (surname == null || name == null || patronymic == null)
             return "";
         return surname + ' ' + name.charAt(0) + ". " + patronymic.charAt(0) + '.'; //Иванов А. И.
     }
@@ -34,12 +35,13 @@ public class User {
         return surname + ' ' + name + ' ' + patronymic;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password.substring(0, 5) + "...'" +
+                ", password='" + (password.length() < 5 ? "" : password.substring(0, 5)) + "...'" +
                 ", roles='" + role + '\'' +
                 '}';
     }

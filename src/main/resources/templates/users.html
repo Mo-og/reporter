@@ -25,7 +25,7 @@
         function clickedToDelete(id) {
             var sured = confirm("Вы уверены, что хотите удалить пользователя №" + id + "? Это действие невозможно отменить!");
             if (sured) {
-                location.href = "user_remove?id=" + id;
+                location.href = "remove_user?id=" + id;
             }
         }
     </script>
@@ -33,7 +33,7 @@
 <body>
 <h1>Пользователи</h1>
 <div class="container">
-    <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newuser}"
+    <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newUser}"
           method="post"
           class="needs-validation" novalidate>
         <div class="row">

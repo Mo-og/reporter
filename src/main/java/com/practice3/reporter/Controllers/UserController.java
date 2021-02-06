@@ -27,7 +27,7 @@ public class UserController {
             service.saveUser(new User("user"+random.nextInt(), "123456", random.nextBoolean() ? EnumRole.ROLE_DISPATCHER : EnumRole.ROLE_SUPERUSER));
         }*/
         model.addAttribute("list", service.getAllUsers());
-        model.addAttribute("newuser", new User());
+        model.addAttribute("newUser", new User());
         return "users";
     }
 
@@ -35,11 +35,11 @@ public class UserController {
     public String addUser(User user, Model model) {
         service.saveUser(user);
         model.addAttribute("list", service.getAllUsers());
-        model.addAttribute("newuser", new User());
+        model.addAttribute("newUser", new User());
         return "users";
     }
 
-    @GetMapping("/user_remove")
+    @GetMapping("/remove_user")
     public String removeUser(@RequestParam Long id) {
         if (!service.existsWithId(id))
             throw new NoSuchElementException();
