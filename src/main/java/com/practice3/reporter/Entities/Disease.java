@@ -1,4 +1,4 @@
-package com.practice3.reporter;
+package com.practice3.reporter.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

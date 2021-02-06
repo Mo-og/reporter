@@ -1,4 +1,4 @@
-package com.practice3.reporter;
+package com.practice3.reporter.Entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "specializations")
-public class Specialization {
+@Table(name = "recommendations")
+public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

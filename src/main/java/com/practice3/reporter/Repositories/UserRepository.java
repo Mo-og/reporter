@@ -1,6 +1,6 @@
 package com.practice3.reporter.Repositories;
 
-import com.practice3.reporter.User;
+import com.practice3.reporter.Entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

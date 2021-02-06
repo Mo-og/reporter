@@ -1,7 +1,7 @@
 package com.practice3.reporter.Controllers;
 
 import com.practice3.reporter.Services.UserService;
-import com.practice3.reporter.User;
+import com.practice3.reporter.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

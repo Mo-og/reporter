@@ -1,6 +1,6 @@
 package com.practice3.reporter.Controllers;
 
-import com.practice3.reporter.User;
+import com.practice3.reporter.Entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

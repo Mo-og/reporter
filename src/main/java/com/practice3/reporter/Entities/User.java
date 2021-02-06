@@ -1,11 +1,11 @@
-package com.practice3.reporter;
+package com.practice3.reporter.Entities;
 
+import com.practice3.reporter.EnumRole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @NoArgsConstructor
