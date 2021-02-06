@@ -29,13 +29,48 @@
             }
         }
     </script>
+    <style>.cl-btn-4 {
+        width: 1.2em;
+        height: 1.2em;
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+        border-radius: 1px;
+        background: #337AB7;
+        margin: 0.2em auto;
+        position: relative;
+        display: block;
+        z-index: 200;
+        text-indent: -9999px;
+        cursor: pointer;
+    }
+    .cl-btn-4:before,
+    .cl-btn-4:after {
+        content: '';
+        width: 80%;
+        height: 0.1em;
+        background: #BFE2FF;
+        position: absolute;
+        top: 48%;
+        left: 10%;
+        transform: rotate(45deg);
+        transition: all 0.3s ease-out;
+    }
+    .cl-btn-4:after {
+        transform: rotate(-45deg);
+        transition: all 0.3s ease-out;
+    }
+    .cl-btn-4:hover:before,
+    .cl-btn-4:hover:after {
+        transform: rotate(180deg);
+        background: #FFF;
+    }
+    </style>
 </head>
 <body>
 <h1>Пользователи</h1>
 <div class="container">
     <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newUser}"
           method="post"
-          class="needs-validation" novalidate>
+          class="needs-validation">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -54,7 +89,7 @@
                     <div class="col-md-4 mb-1">
                         <label for="role">Роль</label>
                         <select name="role" th:field="*{role}" class="form-control" id="role" required
-                                th:default="${T(com.practice3.reporter.EnumRole).ROLE_DISPATCHER}">
+                                th:default="${T(com.practice3.reporter.EnumRole).DISPATCHER}">
                             <option th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
                                     th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
                         </select>
@@ -86,37 +121,36 @@
         </div>
     </form>
 </div>
-<form>
-    <table id="table1" class="table table-striped table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th class="text-justify">ID</th>
-            <th class="text-justify">Никнейм</th>
-            <th class="text-justify">Пароль</th>
-            <th class="text-justify">Роль</th>
-            <th class="text-justify">ФИО</th>
-            <th style="width: 1em" class="text-justify"></th>
-        </tr>
-        </thead>
-        <tbody>
+<table id="table1" class="table table-striped table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th class="text-justify">ID</th>
+        <th class="text-justify">Никнейм</th>
+        <th class="text-justify">Пароль</th>
+        <th class="text-justify">Роль</th>
+        <th class="text-justify">ФИО</th>
+        <th style="width: 1em" class="text-justify"></th>
+    </tr>
+    </thead>
+    <tbody>
 
-        <tr th:each="user : ${list}">
-            <td class="align-middle"><span th:text="${user.id}"></span></td>
-            <td class="align-middle"><span th:text="${user.username}"></span></td>
-            <td class="align-middle"><span th:text="${user.password}"></span></td>
-            <td class="align-middle" th:text="${user.getRole().getDisplayValue()}"></td>
-            <td class="align-middle"><span th:text="${user.getShortName()}"></span></td>
-            <td th:onclick="'javascript:clickedToDelete(\'' + ${user.id} + '\');'">
-                <svg class="bi bi-x-square-fill" width="1em" height="1em" viewBox="0 0 16 16"
-                     fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: inline; cursor: pointer">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                          d="M2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2zm9.854 4.854a.5.5 0 00-.708-.708L8 7.293 4.854 4.146a.5.5 0 10-.708.708L7.293 8l-3.147 3.146a.5.5 0 00.708.708L8 8.707l3.146 3.147a.5.5 0 00.708-.708L8.707 8l3.147-3.146z"
-                         />
-                </svg>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</form>
+    <tr th:each="user : ${list}">
+        <td class="align-middle"><span th:text="${user.id}"></span></td>
+        <td class="align-middle"><span th:text="${user.username}"></span></td>
+        <td class="align-middle"><span th:text="${user.password}"></span></td>
+        <td class="align-middle" th:text="${user.getRole().getDisplayValue()}"></td>
+        <td class="align-middle"><span th:text="${user.getShortName()}"></span></td>
+        <td >
+            <form th:action="@{/remove_user}" method="post"
+                  th:onsubmit="return confirm
+                  ('Вы уверены, что хотите удалить пользователя [[${user.getShortName()}]] (id=[[${user.id}]])?')">
+                <input type="hidden" name="id" th:value="${user.id}"/>
+                <input type="hidden" name="action" value="delete"/>
+                <button type="submit" class="cl-btn-4"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

@@ -11,11 +11,12 @@
     <div class="container">
         <h1>Welcome</h1>
 
-        <form class="form" enctype="multipart/form-data" th:object="${user}" method="post">
-            <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${user.username}" required placeholder="Username">
+        <form class="form needs-validation" id="form" enctype="multipart/form-data" th:object="${form}" method="post">
+            <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${form.username}" required placeholder="Username">
             <input class="form-control" id="password" placeholder="********" th:field="*{password}"
-                   type="password" th:value="${user.password}" required>
-            <button type="submit" id="login-button">Login</button>
+                   type="password" th:value="${form.password}" required>
+            <button type="submit" id="login-button" value="Submit">Login</button>
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
         </form>
     </div>
 
