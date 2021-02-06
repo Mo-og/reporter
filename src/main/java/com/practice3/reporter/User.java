@@ -28,11 +28,11 @@ public class User {
     public String getShortName() {
         if (surname == null || name == null || patronymic == null)
             return "";
-        return surname + ' ' + name.charAt(0) + ". " + patronymic.charAt(0) + '.'; //Иванов А. И.
+        return surname + " " + (name.length() < 1 ? "" : name.charAt(0)+ ". ")  + (patronymic.length() < 1 ? "" : patronymic.charAt(0)+ ".") ; //Иванов А. И.
     }
 
     public String getFullName() {
-        return surname + ' ' + name + ' ' + patronymic;
+        return surname + " " + name + " " + patronymic;
     }
 
 
@@ -41,7 +41,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + (password.length() < 5 ? "" : password.substring(0, 5)) + "...'" +
+                ", password='" + (password.length() < 5 ? "" : password.substring(0, 5)+ "...'")  +
                 ", roles='" + role + '\'' +
                 '}';
     }
