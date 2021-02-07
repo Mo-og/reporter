@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasAnyAuthority("DISPATCHER", "SUPERUSER")
                 .antMatchers( "static/**","/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .and().formLogin().loginPage("/login")
+                .and().formLogin().loginPage("/login").failureForwardUrl("/login")
                 .successHandler(myAuthenticationSuccessHandler());
     }
 

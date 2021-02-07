@@ -8,13 +8,22 @@
 <body>
 
 <div class="wrapper">
-    <div class="container">
+    <div class="fade-in container">
         <h1>Welcome</h1>
 
         <form class="form needs-validation" id="form" enctype="multipart/form-data" th:object="${form}" method="post">
-            <input type="text" class="form-control" id="username" th:field="*{username}" th:value="${form.username}" required placeholder="Username">
-            <input class="form-control" id="password" placeholder="********" th:field="*{password}"
+            <div style="margin-bottom: 1em">
+                <input type="text" id="username" th:field="*{username}"
+                       th:value="${form.username}" required placeholder="Username">
+                <small style="color: red" th:if="${usernameFailed!=null&&usernameFailed}"
+                       th:text="${messageUsername}"></small>
+            </div>
+            <div style="margin-bottom: 1em">
+            <input id="password" placeholder="********" th:field="*{password}"
                    type="password" th:value="${form.password}" required>
+            <small style="color: red" th:if="${passwordFailed!=null&&passwordFailed}"
+                   th:text="${messagePassword}"></small>
+            </div>
             <button type="submit" id="login-button" value="Submit">Login</button>
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
         </form>
