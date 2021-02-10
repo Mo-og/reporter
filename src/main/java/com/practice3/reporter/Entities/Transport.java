@@ -13,9 +13,9 @@ import java.util.List;
 public class Transport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long transportId;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "transport", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
 }

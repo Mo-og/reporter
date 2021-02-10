@@ -13,15 +13,18 @@ import java.util.List;
 public class Consultant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long consultantId;
     private String surname;
     private String name;
     private String patronymic;
 
-    @OneToMany
+    @OneToMany(mappedBy = "consultant", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
-    @OneToMany
-    private List<Consultation> dutyconsultations;
+    @OneToMany(mappedBy = "duty", cascade = CascadeType.ALL)
+    private List<Consultation> dutyConsultations;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Specialization> specializations;
 
     public Consultant(String surname, String name, String patronymic) {
         this.surname = surname;
@@ -40,7 +43,7 @@ public class Consultant {
     @Override
     public String toString() {
         return "Consultant{" +
-                "id=" + id +
+                "id=" + consultantId +
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +

@@ -110,7 +110,7 @@ public class UserController {
             User user = userService.getById(id);
             Coordinator coordinator = user.getCoordinator();
             userService.removeById(id);
-            if (coordinator != null) coordinatorService.removeById(coordinator.getId());
+            if (coordinator != null) coordinatorService.removeById(coordinator.getCoordinatorId());
             if (user.getUsername().equals(principal.getName()))
                 return "redirect:/logout";
         }

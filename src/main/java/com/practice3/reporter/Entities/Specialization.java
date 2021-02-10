@@ -13,9 +13,12 @@ import java.util.List;
 public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long specializationId;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
+
+    @ManyToMany(mappedBy = "specializations")
+    private List<Consultant> consultants;
 }

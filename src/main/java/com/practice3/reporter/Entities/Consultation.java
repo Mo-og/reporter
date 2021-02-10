@@ -11,35 +11,43 @@ import java.util.Date;
 @Entity
 @Table(name = "consultations")
 public class Consultation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long consultationId;
 
     @ManyToOne
+    @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
     private Date date;
 
     @ManyToOne
-    private User user;
+    @JoinColumn(name = "coordinator_id")
+    private Coordinator coordinator;
 
     @ManyToOne
+    @JoinColumn(name = "consultant_id")
     private Consultant consultant;
 
     @ManyToOne
-    private Specialization doctorSpecialization;
+    @JoinColumn(name = "specialization_id")
+    private Specialization specialization;
 
     @ManyToOne
+    @JoinColumn(name = "recommendation_id")
     private Recommendation recommendation;
-    private String comment;
 
     @ManyToOne
+    @JoinColumn(name = "transport_id")
     private Transport transport;
 
     @ManyToOne
+    @JoinColumn(name = "consultant_id")
     private Consultant duty;
 
     @ManyToOne
+    @JoinColumn(name = "specialization_id")
     private Specialization dutySpecialization;
 
     boolean isCovid;

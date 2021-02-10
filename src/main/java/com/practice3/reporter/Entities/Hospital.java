@@ -13,9 +13,9 @@ import java.util.List;
 public class Hospital {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long hospitalId;
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
 }

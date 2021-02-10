@@ -13,7 +13,7 @@ import java.util.List;
 public class Coordinator {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long coordinatorId;
     private String surname = "";
     private String name = "";
     private String patronymic = "";
@@ -21,7 +21,7 @@ public class Coordinator {
     @OneToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
 
     public Coordinator(String surname, String name, String patronymic) {
@@ -67,7 +67,7 @@ public class Coordinator {
     @Override
     public String toString() {
         return "Coordinator{" +
-                "id=" + id +
+                "id=" + coordinatorId +
                 "fullName=" + getFullName() +
                 '}';
     }
