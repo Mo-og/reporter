@@ -2,14 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/logout}" method="post"><button type="submit" >Logout</button></form>
-<h1><a th:href="@{/login}">Login</a></h1>
-<h1><a th:href="@{/users}">Users</a></h1>
-<h2>User: user1</h2>
-<h2>Pass: 123456</h2>
+<div class="wrapper">
+    <div class="fade-in container">
+        <form th:action="@{/logout}" method="post">
+
+            <h1><a th:href="@{/login}">
+                <button type="button" class="btn-secondary">Sign in</button>
+            </a></h1>
+            <h1><a th:href="@{/users}">
+                <button type="button" class="btn-light">Users</button>
+            </a></h1>
+            <button type="submit" class="btn btn-outline-secondary">Log out</button>
+            <a th:href="@{/supersecretrequest7355}" style="padding-bottom: 1em">
+                <button type="button" class="btn btn-outline-secondary">Create superuser if not present</button>
+            </a>
+            <div style="padding-top: 1em"><h2>User: superuser</h2>
+                <h2>Pass: 74553211</h2></div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

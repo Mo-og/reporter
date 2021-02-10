@@ -48,7 +48,7 @@ public class Coordinator {
         if (name != null)
             fullName += name + " ";
         if (patronymic != null)
-            fullName += patronymic.length() < 1 ? "" : patronymic.charAt(0) + ".";
+            fullName += patronymic;
         return fullName;
     }
 

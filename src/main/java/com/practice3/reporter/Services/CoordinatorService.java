@@ -40,7 +40,9 @@ public class CoordinatorService {
     }
 
 
-    public void removeByFullName(String surname,String name, String patronymic) {
-        repository.delete(repository.findFirstBySurnameAndNameAndPatronymic(surname,name,patronymic));
+    public void removeByFullName(String surname, String name, String patronymic) {
+        Coordinator coordinator = repository.findFirstBySurnameAndNameAndPatronymic(surname, name, patronymic);
+        if (coordinator != null)
+            repository.delete(coordinator);
     }
 }
