@@ -103,7 +103,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/remove_user")
+    @PostMapping("/update_user")
     public String removeUser(@RequestParam Long id, @RequestParam String action, Principal principal) {
         if (action.equals("delete")) {
             if (!userService.existsWithId(id)) throw new NoSuchElementException();
