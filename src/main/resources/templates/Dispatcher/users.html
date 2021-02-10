@@ -31,7 +31,22 @@
             }
         }
     </script>
-    <style>.cl-btn-4 {
+    <style>
+        .butn{
+            width: 1.2em;
+            height: 1.2em;
+            box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
+            border-radius: 1px;
+            background: #337AB7;
+            margin: 0.2em auto;
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+        .imag:hover{
+            color: white;
+        }
+        .cl-btn-4 {
         width: 1.2em;
         height: 1.2em;
         box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.25);
@@ -153,18 +168,21 @@
             <td class="align-middle"><span th:if="${object.getCoordinator()!=null}"
                                            th:text="${object.getCoordinator().getShortName()}"></span></td>
             <td>
+                <!--Редактирование-->
                 <form th:if="${LoggedUsername.equals(object.getUser().username)||LoggedRole==T(com.practice3.reporter.EnumRole).SUPERUSER}"
-                      th:action="@{/update_user}" method="post"
-                      th:onsubmit="return confirm
-                  ('Вы уверены, что хотите удалить пользователя [[${object.getCoordinator().getFullName()}]] (id=[[${object.user.id}]])?')">
+                      th:action="@{/edit_user}" method="post">
                     <input type="hidden" name="id" th:value="${object.user.id}"/>
-                    <input type="hidden" name="action" value="update"/>
-                    <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                    <input type="hidden" name="action" value="edit"/>
+                    <button type="submit" class="butn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#BFE2FF" class="imag" viewBox="0 0 15 15" style="margin-left: -5px; margin-top: -5px; margin-bottom: 5px">
+                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
+                        </svg>
+                    </button>
                 </form>
             </td>
             <td>
                 <form th:if="${LoggedRole==T(com.practice3.reporter.EnumRole).SUPERUSER}"
-                      th:action="@{/update_user}" method="post"
+                      th:action="@{/edit_user}" method="post"
                       th:onsubmit="return confirm
                   ('Вы уверены, что хотите удалить пользователя [[${object.getCoordinator().getFullName()}]] (id=[[${object.user.id}]])?')">
                     <input type="hidden" name="id" th:value="${object.user.id}"/>

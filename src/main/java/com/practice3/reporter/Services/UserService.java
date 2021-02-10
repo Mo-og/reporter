@@ -1,5 +1,6 @@
 package com.practice3.reporter.Services;
 
+import com.practice3.reporter.Entities.Coordinator;
 import com.practice3.reporter.Repositories.UserRepository;
 import com.practice3.reporter.Entities.User;
 import com.practice3.reporter.Security.MyUserDetails;
@@ -52,6 +53,10 @@ public class UserService implements UserDetailsService {
     }
     public User getByUsername(String username){
         return repository.findByUsername(username).orElse(null);
+    }
+
+    public void remove(User user){
+        repository.delete(user);
     }
 
     @Override //для авторизации Spring Security

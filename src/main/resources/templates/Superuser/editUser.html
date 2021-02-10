@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение данных пользователя</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+<section class="reservation-block pad-top-100 pad-bottom-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br>
+                <h2 class="block-title text-align-center"><span
+                        class="side-img left-side-img"></span>
+                    Изменение данных пользователя<span class="side-img right-side-img"></span>
+                </h2>
+                <form enctype="multipart/form-data" th:action="@{/update_user}" method="post"
+                      novalidate>
+                    <div class="row">
+                        <label for="userId"><input th:field="${user.id}" type="hidden" class="form-control" id="userId"
+                                                   th:value="${user.id}"></label>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="username">Никнейм</label>
+                                    <input th:field="${user.username}" type="text" class="form-control" id="username"
+                                           placeholder="5 - 14 цифр" th:value="${user.username}" required>
+                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('username')}"
+                                           th:errors="${user.username}"></small>-->
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="password">Новый пароль (если требуется сменить)</label>
+                                    <input th:field="${user.password}" type="password" class="form-control"
+                                           id="password"
+                                           placeholder="*задан текущий пароль*">
+                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('password')}"
+                                           th:errors="${user.password}"></small>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div  th:hidden="${LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER}" th:field="${user.role}" class="col-md-3 mb-3">
+                                    <label for="role">Роль</label>
+                                    <select name="role"  th:disabled="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}" class="form-control" id="role" required>
+                                        <option th:selected="${user.role}"  th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
+                                                th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="id"><input th:field="${coordinator.coordinatorId}" type="hidden"
+                                                           class="form-control" id="id"
+                                                           th:value="${coordinator.coordinatorId}"></label>
+                                    <label for="surname">Фамилия</label>
+                                    <input th:field="${coordinator.surname}" type="text" class="form-control"
+                                           id="surname"
+                                           th:value="${coordinator.surname}" required>
+                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+                                           th:errors="${coordinator.surname}"></small>-->
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="name">Имя</label>
+                                    <input th:field="${coordinator.name}" type="text" class="form-control" id="name"
+                                           th:value="${coordinator.name}" required>
+                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('firstName')}"
+                                           th:errors="*{firstName}"></small>-->
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <label for="patronymic">Отчество</label>
+                                    <input th:field="${coordinator.patronymic}" type="text" class="form-control"
+                                           id="patronymic"
+                                           th:value="${coordinator.patronymic}" required>
+                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('patronymic')}"
+                                           th:errors="*{patronymic}"></small>-->
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <button class="btn btn-warning btn-md btn-block" type="submit" value="Submit">
+                                        Сохранить изменения
+                                    </button>
+                                </div>
+                </form>
+                <div class="col-6 col-md-6">
+                    <form th:action="@{/edit_user}" method="post" th:onsubmit="return confirm
+                                    ('Вы уверены, что хотите удалить пользователя?')">
+                        <input type="hidden" name="id" th:value="${user.id}"/>
+                        <input type="hidden" name="action" value="delete"/>
+                        <div class="col-6 col-md-6">
+                            <button type="submit" class="btn btn-danger btn-md btn-block" value="Submit">Удалить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -45,4 +45,8 @@ public class CoordinatorService {
         if (coordinator != null)
             repository.delete(coordinator);
     }
+
+    public void remove(Coordinator coordinator){
+        repository.delete(coordinator);
+    }
 }

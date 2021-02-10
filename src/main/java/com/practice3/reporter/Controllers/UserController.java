@@ -77,9 +77,14 @@ public class UserController {
     public String addAdmin(Model model) {
         User user = new User(0, "superuser", "admin", EnumRole.SUPERUSER);
         Coordinator coordinator = new Coordinator("admin", "admin", "admin");
-        user.setPassword(new BCryptPasswordEncoder().encode("74553211")); //следует поставить более надежный пароль
-        userService.removeByUsername("superuser");
-        coordinatorService.removeByFullName("admin", "admin", "admin");
+        user.setPassword(new BCryptPasswordEncoder().encode("74553211")); //следует поставить более надежный пароль либо запретить функцию вообще
+        User oldUser = userService.getByUsername("superuser");
+        if (oldUser != null) {
+            oldUser.getCoordinator().setUser(null);
+            coordinatorService.remove(oldUser.getCoordinator());
+            oldUser.setCoordinator(null);
+            userService.remove(oldUser);
+        }
         coordinatorService.saveCoordinator(coordinator);
         user.setCoordinator(coordinator);
         userService.saveUser(user);
@@ -103,17 +108,52 @@ public class UserController {
     }
 
 
-    @PostMapping("/update_user")
-    public String removeUser(@RequestParam Long id, @RequestParam String action, Principal principal) {
+    @PostMapping("/edit_user")
+    public String editUser(@RequestParam Long id, @RequestParam String action, Principal principal, Model model) {
         if (action.equals("delete")) {
             if (!userService.existsWithId(id)) throw new NoSuchElementException();
             User user = userService.getById(id);
             Coordinator coordinator = user.getCoordinator();
-            userService.removeById(id);
-            if (coordinator != null) coordinatorService.removeById(coordinator.getCoordinatorId());
+            user.setCoordinator(null);
+            if (coordinator != null) {
+                coordinator.setUser(null);
+                coordinatorService.remove(coordinator);
+            }
+            userService.remove(user);
             if (user.getUsername().equals(principal.getName()))
                 return "redirect:/logout";
         }
+        if (action.equals("edit")) {
+            User user = userService.getById(id);
+            Coordinator coordinator = user.getCoordinator();
+            model.addAttribute("user", user);
+            model.addAttribute("coordinator", coordinator);
+            model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
+            return "Superuser/editUser";
+        }
+        return "redirect:/users";
+    }
+
+    @PostMapping("/update_user")
+    public String updateUser(@RequestParam Long id,
+                             User postedUser, BindingResult userResult,
+                             Coordinator postedCoordinator,
+                             BindingResult coordinatorResult,
+                             Model model,
+                             Principal principal) {
+        if ((userResult.hasErrors() || coordinatorResult.hasErrors()) && !postedUser.getPassword().equals("")) {
+            model.addAttribute("user", postedUser);
+            model.addAttribute("coordinator", postedCoordinator);
+            model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
+            return "Superuser/editUser";
+        }
+        if (postedUser.getPassword().equals("")) {
+            postedUser.setPassword(userService.getById(postedUser.getId()).getPassword());
+        } else postedUser.setPassword(new BCryptPasswordEncoder().encode(postedUser.getPassword()));
+        postedCoordinator.setUser(postedUser);
+        coordinatorService.saveCoordinator(postedCoordinator);
+        postedUser.setCoordinator(postedCoordinator);
+        userService.saveUser(postedUser);
         return "redirect:/users";
     }
 }
