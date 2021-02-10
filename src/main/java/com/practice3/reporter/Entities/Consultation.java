@@ -43,11 +43,11 @@ public class Consultation {
     private Transport transport;
 
     @ManyToOne
-    @JoinColumn(name = "consultant_id")
+    @JoinColumn(name = "dutyConsultant_id")
     private Consultant duty;
 
     @ManyToOne
-    @JoinColumn(name = "specialization_id")
+    @JoinColumn(name = "dutySpecialization_id")
     private Specialization dutySpecialization;
 
     boolean isCovid;
