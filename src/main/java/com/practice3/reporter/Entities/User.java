@@ -24,8 +24,8 @@ public class User {
     private Coordinator coordinator;
 
     public User(long id, String username, String password, EnumRole role) {
-        this.username = username.strip();
-        this.password = password.strip();
+        this.username = username.trim();
+        this.password = password.trim();
         this.role = role;
     }
 
@@ -40,11 +40,11 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username.strip();
+        this.username = username.trim();
     }
 
     public void setPassword(String password) {
-        this.password = password.strip();
+        this.password = password.trim();
     }
 
     @Override

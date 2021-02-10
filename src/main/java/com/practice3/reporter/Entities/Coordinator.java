@@ -53,15 +53,15 @@ public class Coordinator {
     }
 
     public void setSurname(String surname) {
-        this.surname = surname.strip();
+        this.surname = surname.trim();
     }
 
     public void setName(String name) {
-        this.name = name.strip();
+        this.name = name.trim();
     }
 
     public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic.strip();
+        this.patronymic = patronymic.trim();
     }
 
     @Override
