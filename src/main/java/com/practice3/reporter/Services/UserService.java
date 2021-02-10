@@ -50,6 +50,9 @@ public class UserService implements UserDetailsService {
     public boolean existsWithUsername(String username) {
         return repository.findByUsername(username).isPresent();
     }
+    public User getByUsername(String username){
+        return repository.findByUsername(username).orElse(null);
+    }
 
     @Override //для авторизации Spring Security
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

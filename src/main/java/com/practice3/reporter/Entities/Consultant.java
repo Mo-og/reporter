@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "doctors")
-public class Doctor {
+@Table(name = "consultants")
+public class Consultant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,7 +23,7 @@ public class Doctor {
     @OneToMany
     private List<Consultation> dutyconsultations;
 
-    public Doctor(String surname, String name, String patronymic) {
+    public Consultant(String surname, String name, String patronymic) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
@@ -39,7 +39,7 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" +
+        return "Consultant{" +
                 "id=" + id +
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +

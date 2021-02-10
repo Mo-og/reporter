@@ -42,7 +42,7 @@ public class IndexController {
         if (result.hasFieldErrors("password")) {
             model.addAttribute("messagePassword", "Недопустимый пароль!");
             model.addAttribute("passwordFailed", true);
-            //возможно лишняя нагрузка на базу:
+            //возможно лишняя нагрузка на базу - проверка существования пользователя когда пароль некорректен:
             /*if (!service.existsWithUsername(form.getUsername())) {
                 model.addAttribute("messageUsername", "Пользователь не найден");
                 model.addAttribute("usernameFailed", true);
@@ -61,6 +61,9 @@ public class IndexController {
         model.addAttribute("newUser", new User());
         return "loginForm";
     }
-
+    @PostMapping("/logout")
+    public String logOut() {
+        return "/index";
+    }
 
 }

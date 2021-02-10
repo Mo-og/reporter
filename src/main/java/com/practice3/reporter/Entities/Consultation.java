@@ -24,7 +24,7 @@ public class Consultation {
     private User user;
 
     @ManyToOne
-    private Doctor doctor;
+    private Consultant consultant;
 
     @ManyToOne
     private Specialization doctorSpecialization;
@@ -37,7 +37,7 @@ public class Consultation {
     private Transport transport;
 
     @ManyToOne
-    private Doctor duty;
+    private Consultant duty;
 
     @ManyToOne
     private Specialization dutySpecialization;

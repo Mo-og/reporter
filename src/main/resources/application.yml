@@ -9,7 +9,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     platform: postgres
-    url: jdbc:postgresql://ec2-108-128-104-50.eu-west-1.compute.amazonaws.com:5432/d6qguieh1qcv8s
-    username: ukkypxxbonfmju
-    password: '4ad928352466018e8083957ecf1e35c20fdc668e57ded828e1ef0499fd5d5c81'
+    url: jdbc:postgresql://localhost:5432/reporter
+    username: postgres
+    password: '74553211'
     driverClassName: org.postgresql.Driver

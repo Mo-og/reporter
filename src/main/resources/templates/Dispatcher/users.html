@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="shortcut icon" href="../icon.png" type="image/x-icon">
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -66,7 +67,12 @@
     </style>
 </head>
 <body>
-<h1>Пользователи</h1>
+<div class="row" style="display: flex;justify-content: space-between;width: 100%">
+    <div style="padding-left: 1em"><h1>Пользователи</h1></div>
+    <form style="padding-top: 0.4em" th:action="@{/logout}" method="post">
+        <button class="btn-sm btn-secondary" type="submit">Logout</button>
+    </form>
+</div>
 <div class="container">
     <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newUser}"
           method="post"
@@ -100,17 +106,17 @@
 
                     <div class="col-md-4 mb-2">
                         <label for="surname">Фамилия</label>
-                        <input th:field="*{surname}" type="text" class="form-control" id="surname" required>
+                        <input th:field="${newCoordinator.surname}" type="text" class="form-control" id="surname" required>
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <label for="name">Имя</label>
-                        <input th:field="*{name}" type="text" class="form-control" id="name" required>
+                        <input th:field="${newCoordinator.name}" type="text" class="form-control" id="name" required>
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <label for="patronymic">Отчество</label>
-                        <input th:field="*{patronymic}" type="text" class="form-control" id="patronymic" required>
+                        <input th:field="${newCoordinator.patronymic}" type="text" class="form-control" id="patronymic" required>
                     </div>
                 </div>
 
@@ -134,17 +140,17 @@
     </thead>
     <tbody>
 
-    <tr th:each="user : ${list}">
-        <td class="align-middle"><span th:text="${user.id}"></span></td>
-        <td class="align-middle"><span th:text="${user.username}"></span></td>
-        <td class="align-middle"><span th:text="${user.password}"></span></td>
-        <td class="align-middle" th:text="${user.getRole().getDisplayValue()}"></td>
-        <td class="align-middle"><span th:text="${user.getShortName()}"></span></td>
+    <tr th:each="object : ${list}">
+        <td class="align-middle"><span th:text="${object.getUser().id}"></span></td>
+        <td class="align-middle"><span th:text="${object.getUser().username}"></span></td>
+        <td class="align-middle"><span th:text="${object.getUser().getShortPassword()}"></span></td>
+        <td class="align-middle"><span th:text="${object.getUser().role.getDisplayValue()}"></span></td>
+        <td class="align-middle"><span th:if="${object.getCoordinator()!=null}" th:text="${object.getCoordinator().getShortName()}"></span></td>
         <td >
-            <form th:action="@{/remove_user}" method="post"
+            <form th:if="${LoggedUsername.equals(object.getUser().username)||LoggedRole==T(com.practice3.reporter.EnumRole).SUPERUSER}" th:action="@{/remove_user}" method="post"
                   th:onsubmit="return confirm
-                  ('Вы уверены, что хотите удалить пользователя [[${user.getShortName()}]] (id=[[${user.id}]])?')">
-                <input type="hidden" name="id" th:value="${user.id}"/>
+                  ('Вы уверены, что хотите удалить пользователя [[${object.coordinator.getFullName()}]] (id=[[${object.user.id}]])?')">
+                <input type="hidden" name="id" th:value="${object.user.id}"/>
                 <input type="hidden" name="action" value="delete"/>
                 <button type="submit" class="cl-btn-4"></button>
             </form>

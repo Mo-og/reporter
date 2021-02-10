@@ -19,39 +19,40 @@ public class User {
     private String username = "";
     private String password = "";
     private EnumRole role = EnumRole.DISPATCHER;
-    private String surname = "";
-    private String name = "";
-    private String patronymic = "";
 
-    @OneToMany
-    private List<Consultation> consultations;
+    @OneToOne
+    private Coordinator coordinator;
 
-    public User(long id, String username, String password, EnumRole role, String surname, String name, String patronymic) {
-        this.username = username;
-        this.password = password;
+    public User(long id, String username, String password, EnumRole role) {
+        this.username = username.strip();
+        this.password = password.strip();
         this.role = role;
-        this.surname = surname;
-        this.name = name;
-        this.patronymic = patronymic;
     }
 
-    public String getShortName() {
-        if (surname == null || name == null || patronymic == null)
+    public String getUsername() {
+        if(username==null||username.isEmpty())
             return "";
-        return surname + " " + (name.length() < 1 ? "" : name.charAt(0) + ". ") + (patronymic.length() < 1 ? "" : patronymic.charAt(0) + "."); //Иванов А. И.
+        return username;
     }
 
-    public String getFullName() {
-        return surname + " " + name + " " + patronymic;
+    public String getShortPassword() {
+        return (password.length() < 15 ? password : password.substring(0, 15) + "...");
     }
 
+    public void setUsername(String username) {
+        this.username = username.strip();
+    }
+
+    public void setPassword(String password) {
+        this.password = password.strip();
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + (password.length() < 5 ? "" : password.substring(0, 5) + "...'") +
+                ", password='" + (password.length() < 15 ? "" : password.substring(0, 15) + "...'") +
                 ", roles='" + role + '\'' +
                 '}';
     }
