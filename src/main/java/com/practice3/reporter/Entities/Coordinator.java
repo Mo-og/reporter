@@ -12,13 +12,15 @@ import java.util.List;
 @Table(name = "coordinators")
 public class Coordinator {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long coordinatorId;
     private String surname = "";
     private String name = "";
     private String patronymic = "";
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private User user;
 
     @OneToMany(mappedBy = "coordinator", cascade = CascadeType.ALL)

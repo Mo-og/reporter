@@ -52,7 +52,7 @@
                                                 th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
                                     </select>
                                 </div>
-                                <div class="col-md-3 mb-3">
+                                <div th:class="${(#strings.concat(('mb-3 col-md-'),((LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER) ? 4:3)))}">
                                     <label for="id"><input th:field="${coordinator.coordinatorId}" type="hidden"
                                                            class="form-control" id="id"
                                                            th:value="${coordinator.coordinatorId}"></label>
@@ -64,7 +64,7 @@
                                            th:errors="${coordinator.surname}"></small>-->
                                 </div>
 
-                                <div class="col-md-3 mb-3">
+                                <div th:class="${(#strings.concat(('mb-3 col-md-'),((LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER) ? 4:3)))}">
                                     <label for="name">Имя</label>
                                     <input th:field="${coordinator.name}" type="text" class="form-control" id="name"
                                            th:value="${coordinator.name}" required>
@@ -72,7 +72,7 @@
                                            th:errors="*{firstName}"></small>-->
                                 </div>
 
-                                <div class="col-md-3 mb-3">
+                                <div th:class="${(#strings.concat(('mb-3 col-md-'),((LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER) ? 4:3)))}">
                                     <label for="patronymic">Отчество</label>
                                     <input th:field="${coordinator.patronymic}" type="text" class="form-control"
                                            id="patronymic"

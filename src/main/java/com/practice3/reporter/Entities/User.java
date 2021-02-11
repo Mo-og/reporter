@@ -14,13 +14,15 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username = "";
     private String password = "";
     private EnumRole role = EnumRole.DISPATCHER;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="coordinator_id")
     private Coordinator coordinator;
 
     public User(long id, String username, String password, EnumRole role) {

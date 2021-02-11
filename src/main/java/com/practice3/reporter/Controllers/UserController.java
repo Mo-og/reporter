@@ -47,7 +47,6 @@ public class UserController {
     private List<User_Coordinator> getUser_CoordinatorList() {
         ArrayList<User_Coordinator> list = new ArrayList<>();
         List<User> users = userService.getAllUsers();
-        List<Coordinator> coordinators = coordinatorService.getAllCoordinators();
         for (User value : users) {
             list.add(new User_Coordinator(value, value.getCoordinator()));
         }
@@ -76,17 +75,12 @@ public class UserController {
     @GetMapping("/supersecretrequest7355")
     public String addAdmin(Model model) {
         User user = new User(0, "superuser", "admin", EnumRole.SUPERUSER);
-        Coordinator coordinator = new Coordinator("admin", "admin", "admin");
+        user.setCoordinator(new Coordinator("admin", "admin", "admin"));
         user.setPassword(new BCryptPasswordEncoder().encode("74553211")); //следует поставить более надежный пароль либо запретить функцию вообще
         User oldUser = userService.getByUsername("superuser");
         if (oldUser != null) {
-            oldUser.getCoordinator().setUser(null);
-            coordinatorService.remove(oldUser.getCoordinator());
-            oldUser.setCoordinator(null);
             userService.remove(oldUser);
         }
-        coordinatorService.saveCoordinator(coordinator);
-        user.setCoordinator(coordinator);
         userService.saveUser(user);
         return "redirect:/login";
     }
@@ -101,7 +95,6 @@ public class UserController {
             return prepareUsersModel(principal, model);
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        coordinatorService.saveCoordinator(coordinator);
         user.setCoordinator(coordinator);
         userService.saveUser(user);
         return "redirect:/users";
@@ -114,11 +107,6 @@ public class UserController {
             if (!userService.existsWithId(id)) throw new NoSuchElementException();
             User user = userService.getById(id);
             Coordinator coordinator = user.getCoordinator();
-            user.setCoordinator(null);
-            if (coordinator != null) {
-                coordinator.setUser(null);
-                coordinatorService.remove(coordinator);
-            }
             userService.remove(user);
             if (user.getUsername().equals(principal.getName()))
                 return "redirect:/logout";
@@ -157,7 +145,6 @@ public class UserController {
         if (postedUser.getPassword().equals("")) {
             postedUser.setPassword(userService.getById(postedUser.getId()).getPassword());
         } else postedUser.setPassword(new BCryptPasswordEncoder().encode(postedUser.getPassword()));
-        postedCoordinator.setUser(postedUser);
         coordinatorService.saveCoordinator(postedCoordinator);
         postedUser.setCoordinator(postedCoordinator);
         userService.saveUser(postedUser);
