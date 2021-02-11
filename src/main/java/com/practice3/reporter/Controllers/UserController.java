@@ -147,6 +147,13 @@ public class UserController {
             model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
             return "Superuser/editUser";
         }
+        if (userService.existsWithUsername(postedUser.getUsername())){
+            model.addAttribute("errorMessage","Такое имя пользователя уже существует!");
+            model.addAttribute("user", postedUser);
+            model.addAttribute("coordinator", postedCoordinator);
+            model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
+            return "Superuser/editUser";
+        }
         if (postedUser.getPassword().equals("")) {
             postedUser.setPassword(userService.getById(postedUser.getId()).getPassword());
         } else postedUser.setPassword(new BCryptPasswordEncoder().encode(postedUser.getPassword()));

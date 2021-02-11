@@ -24,6 +24,8 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
+                                    <small style="color: red" th:if="${errorMessage!=null}"
+                                           th:text="${errorMessage}"></small>
                                     <label for="username">Никнейм</label>
                                     <input th:field="${user.username}" type="text" class="form-control" id="username"
                                            placeholder="5 - 14 цифр" th:value="${user.username}" required>
@@ -43,8 +45,10 @@
                             <div class="row">
                                 <div  th:hidden="${LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER}" th:field="${user.role}" class="col-md-3 mb-3">
                                     <label for="role">Роль</label>
-                                    <select name="role"  th:disabled="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}" class="form-control" id="role" required>
-                                        <option th:selected="${user.role}"  th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
+                                    <label><input type="text" hidden th:field="${user.role}" th:value="${user.role}" th:if="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}">
+                                    </label>
+                                    <select name="role" th:field="${user.role}" th:disabled="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}" class="form-control" id="role" required>
+                                        <option th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
                                                 th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
                                     </select>
                                 </div>
