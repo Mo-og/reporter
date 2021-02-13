@@ -43,8 +43,8 @@
             display: block;
             cursor: pointer;
         }
-        .imag:hover{
-            color: white;
+        .butn:hover{
+            background: #3e91dd;
         }
         .cl-btn-4 {
         width: 1.2em;
@@ -60,7 +60,7 @@
         cursor: pointer;
     }
     .cl-btn-4:before,
-    .cl-btn-4:after {
+    .cl-btn-4:after{
         content: '';
         width: 80%;
         height: 0.1em;
@@ -83,11 +83,19 @@
     </style>
 </head>
 <body>
+
 <div class="row" style="display: flex;justify-content: space-between;width: 100%">
     <div style="padding-left: 1em"><h1>Пользователи</h1></div>
-    <form style="padding-top: 0.4em" th:action="@{/logout}" method="post">
-        <button class="btn-sm btn-secondary" type="submit">Log out</button>
-    </form>
+    <div class="row">
+        <form style="padding-top: 0.4em" th:action="@{/}" method="get">
+            <button class="btn-sm btn-secondary" type="submit"
+            >Главная
+            </button>
+        </form>
+        <form style="padding-top: 0.4em;padding-left: 0.4em; padding-right: 0.4em" th:action="@{/logout}" method="post">
+            <button class="btn-sm btn-secondary" type="submit">Log out</button>
+        </form>
+    </div>
 </div>
 <div class="container" th:if="${LoggedRole==T(com.practice3.reporter.EnumRole).SUPERUSER}">
     <form enctype="multipart/form-data" th:action="@{/add_user}" th:object="${newUser}"
@@ -184,7 +192,7 @@
                     <input type="hidden" name="id" th:value="${object.user.id}"/>
                     <input type="hidden" name="action" value="edit"/>
                     <button type="submit" class="butn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#BFE2FF" class="imag" viewBox="0 0 15 15" style="margin-left: -5px; margin-top: -5px; margin-bottom: 5px">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="#BFE2FF" viewBox="0 0 15 15" style="margin-left: -5px; margin-top: -5px; margin-bottom: 5px">
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
                         </svg>
                     </button>
@@ -197,7 +205,7 @@
                   ('Вы уверены, что хотите удалить пользователя [[${object.getCoordinator().getFullName()}]] (id=[[${object.user.id}]])?')">
                     <input type="hidden" name="id" th:value="${object.user.id}"/>
                     <input type="hidden" name="action" value="delete"/>
-                    <button type="submit" class="cl-btn-4"></button>
+                    <button type="submit" class="cl-btn-4 butn"></button>
                 </form>
             </td>
         </tr>

@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @GetMapping("/supersecretrequest7355")
-    public String addAdmin(Model model) {
+    public String addAdmin() {
         User user = new User("superuser", "admin", EnumRole.SUPERUSER);
         user.setCoordinator(new Coordinator("admin", "admin", "admin"));
         user.setPassword(new BCryptPasswordEncoder().encode("74553211")); //следует поставить более надежный пароль либо запретить функцию вообще
