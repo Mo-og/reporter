@@ -16,21 +16,20 @@
                         class="side-img left-side-img"></span>
                     Изменение данных пользователя<span class="side-img right-side-img"></span>
                 </h2>
-                <form enctype="multipart/form-data" th:action="@{/update_user}" method="post"
-                      novalidate>
+                <form enctype="multipart/form-data" th:action="@{/update_user}" method="post">
                     <div class="row">
                         <label for="userId"><input th:field="${user.id}" type="hidden" class="form-control" id="userId"
                                                    th:value="${user.id}"></label>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
+                                    <label for="username">Никнейм</label>
                                     <small style="color: red" th:if="${errorMessage!=null}"
                                            th:text="${errorMessage}"></small>
-                                    <label for="username">Никнейм</label>
                                     <input th:field="${user.username}" type="text" class="form-control" id="username"
                                            placeholder="5 - 14 цифр" th:value="${user.username}" required>
-                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('username')}"
-                                           th:errors="${user.username}"></small>-->
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${user.username}')}"
+                                           th:errors="${user.username}"></small>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -38,8 +37,8 @@
                                     <input th:field="${user.password}" type="password" class="form-control"
                                            id="password"
                                            placeholder="*задан текущий пароль*">
-                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('password')}"
-                                           th:errors="${user.password}"></small>-->
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${user.password}')}"
+                                           th:errors="${user.password}"></small>
                                 </div>
                             </div>
                             <div class="row">
@@ -60,16 +59,16 @@
                                     <input th:field="${coordinator.surname}" type="text" class="form-control"
                                            id="surname"
                                            th:value="${coordinator.surname}" required>
-                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('lastName')}"
-                                           th:errors="${coordinator.surname}"></small>-->
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${coordinator.surname}')}"
+                                           th:errors="${coordinator.surname}"></small>
                                 </div>
 
                                 <div th:class="${(#strings.concat(('mb-3 col-md-'),((LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER) ? 4:3)))}">
                                     <label for="name">Имя</label>
                                     <input th:field="${coordinator.name}" type="text" class="form-control" id="name"
                                            th:value="${coordinator.name}" required>
-                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('firstName')}"
-                                           th:errors="*{firstName}"></small>-->
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${coordinator.name}')}"
+                                           th:errors="${coordinator.name}"></small>
                                 </div>
 
                                 <div th:class="${(#strings.concat(('mb-3 col-md-'),((LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER) ? 4:3)))}">
@@ -77,8 +76,8 @@
                                     <input th:field="${coordinator.patronymic}" type="text" class="form-control"
                                            id="patronymic"
                                            th:value="${coordinator.patronymic}" required>
-                                    <!--<small class="text-danger" th:if="${#fields.hasErrors('patronymic')}"
-                                           th:errors="*{patronymic}"></small>-->
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${coordinator.patronymic}')}"
+                                           th:errors="${coordinator.patronymic}"></small>
                                 </div>
                             </div>
                         </div>

@@ -103,11 +103,15 @@
                         <label for="username">Никнейм</label>
                         <input th:field="*{username}" type="text" class="form-control" id="username"
                                required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('username')}"
+                               th:errors="*{username}"></small>
                     </div>
 
                     <div class="col-md-4 mb-1">
                         <label for="password">Пароль</label>
                         <input th:field="*{password}" type="text" class="form-control" id="password" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}"></small>
                     </div>
 
                     <div class="col-md-4 mb-1">
@@ -125,16 +129,22 @@
                     <div class="col-md-4 mb-2">
                         <label for="surname">Фамилия</label>
                         <input th:field="${newCoordinator.surname}" type="text" class="form-control" id="surname" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.surname}')}"
+                               th:errors="${newCoordinator.surname}"></small>
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <label for="name">Имя</label>
                         <input th:field="${newCoordinator.name}" type="text" class="form-control" id="name" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.name}')}"
+                               th:errors="${newCoordinator.name}"></small>
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <label for="patronymic">Отчество</label>
                         <input th:field="${newCoordinator.patronymic}" type="text" class="form-control" id="patronymic" required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.patronymic}')}"
+                               th:errors="${newCoordinator.patronymic}"></small>
                     </div>
                 </div>
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,10 +59,12 @@ public class UserController {
         return user == null ? null : user.getRole();
     }
 
-    private String prepareUsersModel(Principal principal, Model model) {
+    private String prepareUsersModel(Principal principal, Model model, boolean isShort) {
         model.addAttribute("list", getUser_CoordinatorList());
-        model.addAttribute("newUser", new User());
-        model.addAttribute("newCoordinator", new Coordinator());
+        if (!isShort) {
+            model.addAttribute("newUser", new User());
+            model.addAttribute("newCoordinator", new Coordinator());
+        }
         model.addAttribute("LoggedUsername", principal.getName());
         model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
         return "Dispatcher/users";
@@ -69,12 +72,12 @@ public class UserController {
 
     @GetMapping("/users")
     public String giveUsers(Model model, Principal principal) {
-        return prepareUsersModel(principal, model);
+        return prepareUsersModel(principal, model, false);
     }
 
     @GetMapping("/supersecretrequest7355")
     public String addAdmin(Model model) {
-        User user = new User(0, "superuser", "admin", EnumRole.SUPERUSER);
+        User user = new User("superuser", "admin", EnumRole.SUPERUSER);
         user.setCoordinator(new Coordinator("admin", "admin", "admin"));
         user.setPassword(new BCryptPasswordEncoder().encode("74553211")); //следует поставить более надежный пароль либо запретить функцию вообще
         User oldUser = userService.getByUsername("superuser");
@@ -86,13 +89,17 @@ public class UserController {
     }
 
     @PostMapping("/add_user")
-    public String addUser(@Valid User user, @Valid Coordinator coordinator, Principal principal, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return prepareUsersModel(principal, model);
+    public String addUser(@Valid @ModelAttribute("newUser") User user, BindingResult userFields, @Valid Coordinator coordinator, BindingResult coordinatorFields, Principal principal, Model model) {
+        if (userFields.hasErrors() || coordinatorFields.hasErrors()) {
+            model.addAttribute("newUser", user);
+            model.addAttribute("newCoordinator", coordinator);
+            return prepareUsersModel(principal, model, true);
         }
         if (userService.existsWithUsername(user.getUsername())) {
             model.addAttribute("errorMessage", "Такой никнейм уже существует!");
-            return prepareUsersModel(principal, model);
+            model.addAttribute("newUser", user);
+            model.addAttribute("newCoordinator", coordinator);
+            return prepareUsersModel(principal, model, true);
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setCoordinator(coordinator);
@@ -100,13 +107,11 @@ public class UserController {
         return "redirect:/users";
     }
 
-
-    @PostMapping("/edit_user")
-    public String editUser(@RequestParam Long id, @RequestParam String action, Principal principal, Model model) {
+    @PostMapping("/edit_user") // edit and delete
+    public String editUser(@RequestParam Long id, @RequestParam String action, Principal principal, Model model) throws NoSuchElementException {
         if (action.equals("delete")) {
             if (!userService.existsWithId(id)) throw new NoSuchElementException();
             User user = userService.getById(id);
-            Coordinator coordinator = user.getCoordinator();
             userService.remove(user);
             if (user.getUsername().equals(principal.getName()))
                 return "redirect:/logout";
@@ -135,13 +140,14 @@ public class UserController {
             model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
             return "Superuser/editUser";
         }
-        if (userService.existsWithUsername(postedUser.getUsername())){
-            model.addAttribute("errorMessage","Такое имя пользователя уже существует!");
-            model.addAttribute("user", postedUser);
-            model.addAttribute("coordinator", postedCoordinator);
-            model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
-            return "Superuser/editUser";
-        }
+        if (!userService.getById(id).getUsername().equals(postedUser.getUsername()))
+            if (userService.existsWithUsername(postedUser.getUsername())) {
+                model.addAttribute("errorMessage", "Такое имя пользователя уже существует!");
+                model.addAttribute("user", postedUser);
+                model.addAttribute("coordinator", postedCoordinator);
+                model.addAttribute("LoggedRole", getRoleByUsername(principal.getName()));
+                return "Superuser/editUser";
+            }
         if (postedUser.getPassword().equals("")) {
             postedUser.setPassword(userService.getById(postedUser.getId()).getPassword());
         } else postedUser.setPassword(new BCryptPasswordEncoder().encode(postedUser.getPassword()));

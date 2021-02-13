@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
@@ -15,8 +16,11 @@ public class Coordinator {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long coordinatorId;
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯґҐєЄіІїЇ -]{5,100}$", message = "Фамилия может включать только 5-100 символов: латинских или кириллических букв, дефисов [-] и пробелов!")
     private String surname = "";
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯґҐєЄіІїЇ -]{5,100}$", message = "Имя может включать только 5-100 символов: латинских или кириллических букв, дефисов [-] и пробелов!")
     private String name = "";
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯґҐєЄіІїЇ -]{5,100}$", message = "Отчество может включать только 5-100 символов: латинских или кириллических букв, дефисов [-] и пробелов!")
     private String patronymic = "";
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -27,9 +31,9 @@ public class Coordinator {
     private List<Consultation> consultations;
 
     public Coordinator(String surname, String name, String patronymic) {
-        this.surname = surname;
-        this.name = name;
-        this.patronymic = patronymic;
+        this.surname = surname.trim();
+        this.name = name.trim();
+        this.patronymic = patronymic.trim();
     }
 
     public String getShortName() {
