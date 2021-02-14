@@ -42,7 +42,7 @@ public class UserController {
     }
 
     public static List<Coordinator> getAllConsultants() {
-        return coordinatorService.getAllCoordinators();
+        return coordinatorService.getAll();
     }
 
     private List<User_Coordinator> getUser_CoordinatorList() {
@@ -151,7 +151,7 @@ public class UserController {
         if (postedUser.getPassword().equals("")) {
             postedUser.setPassword(userService.getById(postedUser.getId()).getPassword());
         } else postedUser.setPassword(new BCryptPasswordEncoder().encode(postedUser.getPassword()));
-        coordinatorService.saveCoordinator(postedCoordinator);
+        coordinatorService.save(postedCoordinator);
         postedUser.setCoordinator(postedCoordinator);
         userService.saveUser(postedUser);
         return "redirect:/users";

@@ -16,11 +16,11 @@ public class TransportService {
         this.repository = repository;
     }
 
-    public void saveConsultant(Transport specialization) {
+    public void save(Transport specialization) {
         repository.save(specialization);
     }
 
-    public List<Transport> getAllConsultations() {
+    public List<Transport> getAll() {
         return repository.findAll();
     }
 

@@ -16,11 +16,11 @@ public class ConsultantService {
         this.repository = repository;
     }
 
-    public void saveConsultant(Consultant consultant) {
+    public void save(Consultant consultant) {
         repository.save(consultant);
     }
 
-    public List<Consultant> getAllConsultants() {
+    public List<Consultant> getAll() {
         return repository.findAll();
     }
 

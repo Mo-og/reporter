@@ -16,12 +16,11 @@ public class ConsultationService {
         this.repository = repository;
     }
 
-    public void saveConsultant(Consultation consultation) {
+    public void save(Consultation consultation) {
         repository.save(consultation);
     }
 
-    public List<Consultation> getAllConsultations() {
-        System.out.println(repository.findAll());
+    public List<Consultation> getAll() {
         return repository.findAll();
     }
 

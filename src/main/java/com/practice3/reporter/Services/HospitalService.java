@@ -16,11 +16,15 @@ public class HospitalService {
         this.repository = repository;
     }
 
-    public void saveConsultant(Hospital specialization) {
+    public Hospital getByName(String name){
+        return repository.findHospitalByName(name);
+    }
+
+    public void save(Hospital specialization) {
         repository.save(specialization);
     }
 
-    public List<Hospital> getAllConsultations() {
+    public List<Hospital> getAll() {
         return repository.findAll();
     }
 

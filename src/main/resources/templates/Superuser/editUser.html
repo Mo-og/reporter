@@ -44,9 +44,7 @@
                             <div class="row">
                                 <div  th:hidden="${LoggedRole!=T(com.practice3.reporter.EnumRole).SUPERUSER}" th:field="${user.role}" class="col-md-3 mb-3">
                                     <label for="role">Роль</label>
-                                    <label><input type="text" hidden th:field="${user.role}" th:value="${user.role}" th:if="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}">
-                                    </label>
-                                    <select name="role" th:field="${user.role}" th:disabled="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}" class="form-control" id="role" required>
+                                    <select name="role" th:field="${user.role}" th:readonly="${user.role==T(com.practice3.reporter.EnumRole).SUPERUSER}" class="form-control" id="role" required>
                                         <option th:each="roleOpt : ${T(com.practice3.reporter.EnumRole).values()}"
                                                 th:value="${roleOpt}" th:text="${roleOpt.getDisplayValue()}"></option>
                                     </select>

@@ -15,12 +15,16 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long consultationId;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;
 
-    private Date date;
+    @ManyToOne
+    @JoinColumn(name = "report_id")
+    private Report report;
+
 
     @ManyToOne
     @JoinColumn(name = "coordinator_id")

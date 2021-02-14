@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание экстренной консультации</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<header class="row" style="display: flex;justify-content: space-between;width: 100%">
+    <div style="padding-left: 1em"><h1>Создание экстренной консультации</h1></div>
+    <div class="row">
+        <form style="padding-top: 0.4em" th:action="@{/}" method="get">
+            <button class="btn-sm btn-secondary" type="submit"
+            >Главная
+            </button>
+        </form>
+        <form style="padding-top: 0.4em;padding-left: 0.4em; padding-right: 0.4em" th:action="@{/logout}" method="post">
+            <button class="btn-sm btn-secondary" type="submit">Log out</button>
+        </form>
+    </div>
+</header>
+
+<div class="container">
+    <form enctype="multipart/form-data" th:action="@{/emergency}" method="post" class="needs-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label for="planned">Плановых консультаций</label>
+                        <input th:field="${newReport.planned}" type="number" min="0" step="1" class="form-control" id="planned"
+                               required>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newReport.planned}')}"
+                               th:errors="${newReport.planned}"></small>
+                    </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label for="date">Дата и время консультации</label>
+                        <input name="date" type="datetime-local" th:min="${minDate}" th:max="${maxDate}" class="form-control" id="date" required>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-2">
+                        <label for="hospital">Лечебное учреждение пациента</label>
+                        <!--TODO сделать отображение названия, а сохранение id-->
+                        <input th:field="${newHospital.name}" list="hospitals" id="hospital" type="text" class="form-control" required/>
+                        <datalist id="hospitals">
+                            <!--/*@thymesVar id="hospital" type="com.practice3.reporter.Entities.Hospital"*/-->
+                            <option th:each="hospital : ${hospitals}"
+                                    th:value="${hospital.name}"></option>
+                        </datalist>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newHospital.name}')}"
+                               th:errors="${newHospital.name}"></small>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="fullName">Координатор</label>
+                        <select th:field="${newCoordinator.coordinatorId}"  id="fullName" class="form-control" required>
+                            <option th:each="coordinator : ${coordinators}"
+                                    th:value="${coordinator.coordinatorId}" th:text="${coordinator.getFullName()}">
+                            </option>
+                        </select>
+                            <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.surname}')}"
+                               th:errors="${newCoordinator.surname}"></small>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-secondary btn btn-block mb-3" type="submit" value="Submit">
+                    Сохранить и продолжить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
