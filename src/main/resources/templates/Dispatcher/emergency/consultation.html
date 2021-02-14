@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание экстренной консультации</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<header class="row" style="display: flex;justify-content: space-between;width: 100%">
+    <div style="padding-left: 1em"><h1>Создание экстренной консультации</h1></div>
+    <div class="row">
+        <form style="padding-top: 0.4em" th:action="@{/}" method="get">
+            <button class="btn-sm btn-secondary" type="submit"
+            >Главная
+            </button>
+        </form>
+        <form style="padding-top: 0.4em;padding-left: 0.4em; padding-right: 0.4em" th:action="@{/logout}" method="post">
+            <button class="btn-sm btn-secondary" type="submit">Log out</button>
+        </form>
+    </div>
+</header>
+
+<div class="container">
+    <form enctype="multipart/form-data" th:action="@{/consultation}" method="post" class="needs-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6 mb-2">
+                        <label for="specialization">Специализация</label>
+                        <input th:field="${newSpecialization.name}" list="specializations" id="specialization" type="text" class="form-control" required/>
+                        <datalist id="specializations">
+                            <option th:each="specialization : ${specializations}"
+                                    th:value="${specialization.name}"></option>
+                        </datalist>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newSpecialization.name}')}"
+                               th:errors="${newSpecialization.name}"></small>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="recommendation">Рекомендация</label>
+                        <input th:field="${newRecommendation.name}" list="recommendations"  id="recommendation" class="form-control" required/>
+                        <datalist id="recommendations">
+                            <option th:each="recommendation : ${recommendations}"
+                                    th:value="${recommendation.name}"></option>
+                        </datalist>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newRecommendation.name}')}"
+                               th:errors="${newRecommendation.name}"></small>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-2">
+                        <label for="transport">Транспорт</label>
+                        <input th:field="${newTransport.name}" list="transports" id="transport" type="text" class="form-control" required/>
+                        <datalist id="transports">
+                            <option th:each="transport : ${transports}"
+                                    th:value="${transport.name}"></option>
+                        </datalist>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newTransport.name}')}"
+                               th:errors="${newTransport.name}"></small>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="duty">Рекомендация</label>
+                        <input th:field="${newDuty.name}" list="duties"  id="duty" class="form-control"/>
+                        <datalist id="duties">
+                            <option th:each="duty : ${duties}"
+                                    th:value="${duty.name}"></option>
+                        </datalist>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newDuty.name}')}"
+                               th:errors="${newDuty.name}"></small>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-secondary btn btn-block mb-3" type="submit" value="Submit">
+                    Сохранить и продолжить
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

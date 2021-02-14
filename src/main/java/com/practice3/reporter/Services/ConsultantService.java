@@ -1,6 +1,7 @@
 package com.practice3.reporter.Services;
 
 import com.practice3.reporter.Entities.Consultant;
+import com.practice3.reporter.Entities.Transport;
 import com.practice3.reporter.Repositories.ConsultantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +29,13 @@ public class ConsultantService {
         return repository.getOne(id);
     }
 
+    public Consultant getConsultantByName(String name) {
+        return repository.findConsultantByName(name);
+    }
+
     public void removeById(long id) {
         repository.deleteById(id);
     }
-
 
     public boolean existsWithId(long id) {
         return repository.existsById(id);

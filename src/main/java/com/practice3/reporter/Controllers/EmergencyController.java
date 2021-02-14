@@ -1,9 +1,6 @@
 package com.practice3.reporter.Controllers;
 
-import com.practice3.reporter.Entities.Consultation;
-import com.practice3.reporter.Entities.Coordinator;
-import com.practice3.reporter.Entities.Hospital;
-import com.practice3.reporter.Entities.Report;
+import com.practice3.reporter.Entities.*;
 import com.practice3.reporter.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -151,6 +148,45 @@ public class EmergencyController {
         consultation.setCoordinator(dbCoordinator);
         System.out.println(consultation);
         model.addAttribute("consultation", consultation);
-        return "redirect:Dispatcher/emergency/next";
+        return "redirect:/consultation";
+    }
+
+    @GetMapping("/consultation")
+    public String addConsultation(Model model, Consultation consultation) {
+        System.out.println(model.getAttribute("consultation"));
+        model.addAttribute("consultation", consultation);
+        model.addAttribute("newSpecialization", new Specialization());
+        model.addAttribute("specializations", specializationService.getAll());
+        model.addAttribute("newRecommendation", new Recommendation());
+        model.addAttribute("recommendations", recommendationService.getAll());
+        model.addAttribute("newTransport", new Transport());
+        model.addAttribute("transports", transportService.getAll());
+        model.addAttribute("newDuty", new Consultant());
+        model.addAttribute("duties", consultantService.getAll());
+        return "Dispatcher/emergency/consultation";
+    }
+
+    @PostMapping("/consultation")
+    public String addingConsultation(Model model,
+                                     @Valid Consultation consultation, BindingResult consultationResult,
+                                     @Valid Specialization specialization, BindingResult specializationResult,
+                                     @Valid Recommendation recommendation, BindingResult recommendationResult,
+                                     @Valid Transport transport, BindingResult transportResult,
+                                     @Valid Consultant duty, BindingResult dutyResult) {
+        if (specializationService.getSpecializationByName(specialization.getName()) == null)
+            specializationService.save(specialization);
+        consultation.setSpecialization(specializationService.getSpecializationByName(specialization.getName()));
+        if (recommendationService.getRecommendationByName(recommendation.getName()) == null)
+            recommendationService.save(recommendation);
+        consultation.setRecommendation(recommendationService.getRecommendationByName(recommendation.getName()));
+        if (transportService.getTransportByName(transport.getName()) == null)
+            transportService.save(transport);
+        consultation.setTransport(transportService.getTransportByName(transport.getName()));
+        if (consultantService.getConsultantByName(duty.getName()) == null)
+            consultantService.save(duty);
+        consultation.setDuty(consultantService.getConsultantByName(duty.getName()));
+        System.out.println(consultation);
+        model.addAttribute("consultation", consultation);
+        return "redirect:/index";
     }
 }

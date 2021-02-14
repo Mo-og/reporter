@@ -28,6 +28,10 @@ public class SpecializationService {
         return repository.getOne(id);
     }
 
+    public Specialization getSpecializationByName(String name) {
+        return repository.findSpecializationByName(name);
+    }
+
     public void removeById(long id) {
         repository.deleteById(id);
     }

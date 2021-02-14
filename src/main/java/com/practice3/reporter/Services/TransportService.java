@@ -28,6 +28,10 @@ public class TransportService {
         return repository.getOne(id);
     }
 
+    public Transport getTransportByName(String name) {
+        return repository.findTransportByName(name);
+    }
+
     public void removeById(long id) {
         repository.deleteById(id);
     }

@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/users/**","/emergency").hasAnyAuthority("DISPATCHER", "SUPERUSER")
+                .antMatchers("/users/**","/emergency","/consultation").hasAnyAuthority("DISPATCHER", "SUPERUSER")
                 .antMatchers( "static/**","/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .and().formLogin().loginPage("/login").failureForwardUrl("/login")
