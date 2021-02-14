@@ -126,25 +126,26 @@ public class EmergencyController {
         consultation.setHospital(hospitalService.getByName(hospital.getName()));
         if (report != null) {
             Report recentReport = reportService.getRecent();
-            if (recentReport != null)
-                if (report.getDate().equals(recentReport.getDate())) {
+            if (recentReport != null) {
+                if (report.getPlanned() != recentReport.getPlanned()) {
                     recentReport.setPlanned(report.getPlanned());
                     reportService.save(recentReport);
                     consultation.setReport(recentReport);
                 }
-            try {
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(formatter.parse(date));
-                calendar.clear(Calendar.MINUTE);
-                calendar.clear(Calendar.SECOND);
-                calendar.clear(Calendar.MILLISECOND);
-                calendar.set(Calendar.HOUR_OF_DAY, 7);
-                report.setDate(calendar.getTime());
-                reportService.save(report);
-                consultation.setReport(report);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            } else
+                try {
+                    GregorianCalendar calendar = new GregorianCalendar();
+                    calendar.setTime(formatter.parse(date));
+                    calendar.clear(Calendar.MINUTE);
+                    calendar.clear(Calendar.SECOND);
+                    calendar.clear(Calendar.MILLISECOND);
+                    calendar.set(Calendar.HOUR_OF_DAY, 7);
+                    report.setDate(calendar.getTime());
+                    reportService.save(report);
+                    consultation.setReport(report);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
         }
         Coordinator dbCoordinator = coordinatorService.getById(coordinator.getCoordinatorId());
         consultation.setCoordinator(dbCoordinator);
