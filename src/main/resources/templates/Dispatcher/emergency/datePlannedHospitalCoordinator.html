@@ -28,8 +28,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-2">
                         <label for="planned">Плановых консультаций</label>
-                        <input th:field="${newReport.planned}" type="number" min="0" step="1" class="form-control" id="planned"
-                               required>
+                        <input th:field="${newReport.planned}" th:value="${newReport.planned}" type="number" min="0" step="1" class="form-control" id="planned">
                         <small class="text-danger" th:if="${#fields.hasErrors('${newReport.planned}')}"
                                th:errors="${newReport.planned}"></small>
                     </div>

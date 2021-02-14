@@ -82,7 +82,11 @@ public class EmergencyController {
 
     @GetMapping("/emergency")
     public String giveDateAndPlanned(Model model) {
-        model.addAttribute("newReport", new Report());
+        Report report = reportService.getRecent();
+        if (report != null)
+            model.addAttribute("newReport", report);
+        else
+            model.addAttribute("newReport", new Report());
         model.addAttribute("newConsultation", new Consultation());
         model.addAttribute("newCoordinator", new Coordinator());
         model.addAttribute("newHospital", new Hospital());
@@ -121,13 +125,20 @@ public class EmergencyController {
             hospitalService.save(hospital);
         consultation.setHospital(hospitalService.getByName(hospital.getName()));
         if (report != null) {
+            Report recentReport = reportService.getRecent();
+            if (recentReport != null)
+                if (report.getDate().equals(recentReport.getDate())) {
+                    recentReport.setPlanned(report.getPlanned());
+                    reportService.save(recentReport);
+                    consultation.setReport(recentReport);
+                }
             try {
-                GregorianCalendar calendar=new GregorianCalendar();
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(formatter.parse(date));
                 calendar.clear(Calendar.MINUTE);
                 calendar.clear(Calendar.SECOND);
                 calendar.clear(Calendar.MILLISECOND);
-                calendar.set(Calendar.HOUR_OF_DAY,7);
+                calendar.set(Calendar.HOUR_OF_DAY, 7);
                 report.setDate(calendar.getTime());
                 reportService.save(report);
                 consultation.setReport(report);

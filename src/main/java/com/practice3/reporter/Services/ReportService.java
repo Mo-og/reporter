@@ -7,6 +7,9 @@ import com.practice3.reporter.Repositories.TransportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Service
@@ -36,5 +39,16 @@ public class ReportService {
 
     public boolean existsWithId(long id) {
         return repository.existsById(id);
+    }
+
+    public Report getRecent() {
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        if (calendar.get(Calendar.HOUR_OF_DAY)<7)
+            calendar.set(Calendar.DAY_OF_MONTH,-1);
+        calendar.set(Calendar.HOUR_OF_DAY,7);
+        return repository.findFirstByDate(calendar.getTime());
     }
 }
