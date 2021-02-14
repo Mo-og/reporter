@@ -14,7 +14,7 @@ public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long specializationId;
-    private String name;
+    private String specializationName;
 
     @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)
     private List<Consultation> consultations;

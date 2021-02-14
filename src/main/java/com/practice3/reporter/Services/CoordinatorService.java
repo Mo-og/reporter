@@ -39,11 +39,11 @@ public class CoordinatorService {
             name = fullName.substring(fullName.indexOf(' ') + 1, fullName.lastIndexOf(' ')).trim();
             patronymic = fullName.substring(fullName.lastIndexOf(' ') + 1).trim();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Full name of coordinator is incorrect/has no whitespaces.");
+            System.out.println("Full specializationName of coordinator is incorrect/has no whitespaces.");
             e.printStackTrace();
             return null;
         }
-        //System.out.println(surname + " " + name + " " + patronymic);
+        //System.out.println(surname + " " + specializationName + " " + patronymic);
         return repository.findFirstBySurnameAndNameAndPatronymic(surname, name, patronymic);
     }
 

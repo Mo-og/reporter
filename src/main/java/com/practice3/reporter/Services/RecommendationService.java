@@ -1,6 +1,5 @@
 package com.practice3.reporter.Services;
 
-import com.practice3.reporter.Entities.Consultant;
 import com.practice3.reporter.Entities.Recommendation;
 import com.practice3.reporter.Repositories.RecommendationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class RecommendationService {
     }
 
     public Recommendation getRecommendationByName(String name) {
-        return repository.findRecommendationByName(name);
+        return repository.findRecommendationByRecommendationName(name);
     }
 
     public void removeById(long id) {

@@ -45,7 +45,7 @@ public class Consultant {
         return "Consultant{" +
                 "id=" + consultantId +
                 ", surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
+                ", specializationName='" + name + '\'' +
                 ", patronymic='" + patronymic + '\'' +
                 '}';
     }

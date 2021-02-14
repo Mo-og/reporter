@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 @Controller
@@ -141,6 +140,7 @@ public class EmergencyController {
                     reportService.save(report);
                     consultation.setReport(report);
                 } catch (ParseException e) {
+                    System.out.println("\nUNABLE TO SAVE REPORT DATA! [EmergencyController 136:17]\n");
                     e.printStackTrace();
                 }
         }
@@ -173,15 +173,15 @@ public class EmergencyController {
                                      @Valid Recommendation recommendation, BindingResult recommendationResult,
                                      @Valid Transport transport, BindingResult transportResult,
                                      @Valid Consultant duty, BindingResult dutyResult) {
-        if (specializationService.getSpecializationByName(specialization.getName()) == null)
+        if (specializationService.getSpecializationByName(specialization.getSpecializationName()) == null)
             specializationService.save(specialization);
-        consultation.setSpecialization(specializationService.getSpecializationByName(specialization.getName()));
-        if (recommendationService.getRecommendationByName(recommendation.getName()) == null)
+        consultation.setSpecialization(specializationService.getSpecializationByName(specialization.getSpecializationName()));
+        if (recommendationService.getRecommendationByName(recommendation.getRecommendationName()) == null)
             recommendationService.save(recommendation);
-        consultation.setRecommendation(recommendationService.getRecommendationByName(recommendation.getName()));
-        if (transportService.getTransportByName(transport.getName()) == null)
+        consultation.setRecommendation(recommendationService.getRecommendationByName(recommendation.getRecommendationName()));
+        if (transportService.getTransportByName(transport.getTransportName()) == null)
             transportService.save(transport);
-        consultation.setTransport(transportService.getTransportByName(transport.getName()));
+        consultation.setTransport(transportService.getTransportByName(transport.getTransportName()));
         if (consultantService.getConsultantByName(duty.getName()) == null)
             consultantService.save(duty);
         consultation.setDuty(consultantService.getConsultantByName(duty.getName()));

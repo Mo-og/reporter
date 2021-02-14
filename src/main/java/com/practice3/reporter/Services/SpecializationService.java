@@ -29,7 +29,7 @@ public class SpecializationService {
     }
 
     public Specialization getSpecializationByName(String name) {
-        return repository.findSpecializationByName(name);
+        return repository.findSpecializationBySpecializationName(name);
     }
 
     public void removeById(long id) {

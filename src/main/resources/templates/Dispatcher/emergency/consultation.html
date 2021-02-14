@@ -29,23 +29,23 @@
 
                     <div class="col-md-6 mb-2">
                         <label for="specialization">Специализация</label>
-                        <input th:field="${newSpecialization.name}" list="specializations" id="specialization" type="text" class="form-control" required/>
+                        <input th:field="${newSpecialization.specializationName}" list="specializations" id="specialization" type="text" class="form-control" required/>
                         <datalist id="specializations">
                             <option th:each="specialization : ${specializations}"
-                                    th:value="${specialization.name}"></option>
+                                    th:value="${specialization.specializationName}"></option>
                         </datalist>
-                        <small class="text-danger" th:if="${#fields.hasErrors('${newSpecialization.name}')}"
-                               th:errors="${newSpecialization.name}"></small>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newSpecialization.specializationName}')}"
+                               th:errors="${newSpecialization.specializationName}"></small>
                     </div>
                     <div class="col-md-6 mb-2">
                         <label for="recommendation">Рекомендация</label>
-                        <input th:field="${newRecommendation.name}" list="recommendations"  id="recommendation" class="form-control" required/>
+                        <input th:field="${newRecommendation.recommendationName}" list="recommendations"  id="recommendation" class="form-control" required/>
                         <datalist id="recommendations">
                             <option th:each="recommendation : ${recommendations}"
-                                    th:value="${recommendation.name}"></option>
+                                    th:value="${recommendation.recommendationName}"></option>
                         </datalist>
-                        <small class="text-danger" th:if="${#fields.hasErrors('${newRecommendation.name}')}"
-                               th:errors="${newRecommendation.name}"></small>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newRecommendation.recommendationName}')}"
+                               th:errors="${newRecommendation.recommendationName}"></small>
                     </div>
 
                 </div>
@@ -54,13 +54,13 @@
 
                     <div class="col-md-6 mb-2">
                         <label for="transport">Транспорт</label>
-                        <input th:field="${newTransport.name}" list="transports" id="transport" type="text" class="form-control" required/>
+                        <input th:field="${newTransport.transportName}" list="transports" id="transport" type="text" class="form-control" required/>
                         <datalist id="transports">
                             <option th:each="transport : ${transports}"
-                                    th:value="${transport.name}"></option>
+                                    th:value="${transport.transportName}"></option>
                         </datalist>
-                        <small class="text-danger" th:if="${#fields.hasErrors('${newTransport.name}')}"
-                               th:errors="${newTransport.name}"></small>
+                        <small class="text-danger" th:if="${#fields.hasErrors('${newTransport.transportName}')}"
+                               th:errors="${newTransport.transportName}"></small>
                     </div>
                     <div class="col-md-6 mb-2">
                         <label for="duty">Рекомендация</label>

@@ -14,7 +14,7 @@ public class Recommendation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long recommendationId;
-    private String name;
+    private String recommendationName;
 
     @OneToMany(mappedBy = "recommendation", cascade = CascadeType.ALL)
     private List<Consultation> consultations;
