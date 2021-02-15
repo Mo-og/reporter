@@ -63,7 +63,7 @@
                                th:errors="${newTransport.transportName}"></small>
                     </div>
                     <div class="col-md-6 mb-2">
-                        <label for="duty">Рекомендация</label>
+                        <label for="duty">Дежурный консультант</label>
                         <input th:field="${newDuty.name}" list="duties"  id="duty" class="form-control"/>
                         <datalist id="duties">
                             <option th:each="duty : ${duties}"
