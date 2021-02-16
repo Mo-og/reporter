@@ -2,77 +2,122 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Создание экстренной консультации</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 
+    <title>Создание экстренной консультации</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <style>
+        .one {
+            background: radial-gradient(1.5em 6.28571em at 1.95em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(1.5em 6.28571em at -0.45em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 1.5em 5.5em, radial-gradient(2.3em 4.57143em at 2.99em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(2.3em 4.57143em at -0.69em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 55%, rgba(255, 255, 255, 0) 55%) 2.3em 4em, radial-gradient(3.5em 6.28571em at 4.55em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 0 0, radial-gradient(3.5em 6.28571em at -1.05em, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.25) 55%, rgba(255, 255, 255, 0) 55%) 3.5em 5.5em, radial-gradient(#28e092, #00ced1);
+            background-color: #53e3a6;
+            background-size: 1.5em 11em, 1.5em 11em, 2.3em 8em, 2.3em 8em, 3.5em 11em, 3.5em 11em, 100% 100%;
+            background-repeat: repeat;
+        }
+
+        button:hover {
+            box-shadow: rgba(93, 93, 93, 0.6) 1px 1px 5px 2px;
+        }
+
+        label {
+            text-shadow: white 1px 1px 3px;
+            font-weight: 550;
+        }
+    </style>
 </head>
 <body>
-<header class="row" style="display: flex;justify-content: space-between;width: 100%">
-    <div style="padding-left: 1em"><h1>Создание экстренной консультации</h1></div>
-    <div class="row">
-        <form style="padding-top: 0.4em" th:action="@{/}" method="get">
-            <button class="btn-sm btn-secondary" type="submit"
-            >Главная
-            </button>
-        </form>
-        <form style="padding-top: 0.4em;padding-left: 0.4em; padding-right: 0.4em" th:action="@{/logout}" method="post">
-            <button class="btn-sm btn-secondary" type="submit">Log out</button>
-        </form>
-    </div>
-</header>
+<div class="wrapper one" style="height: 100vh">
+    <div style="display: flex;justify-content: center;flex-direction: row; width: 100%">
+        <div class="container-xl"
+             style="display: flex;justify-content: center;flex-direction: column;position: absolute; width: 100%;  height: 100%;  overflow: auto;">
 
-<div class="container">
-    <form enctype="multipart/form-data" th:action="@{/emergency}" method="post" class="needs-validation">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="planned">Плановых консультаций</label>
-                        <input th:field="${newReport.planned}" th:value="${newReport.planned}" type="number" min="0" step="1" class="form-control" id="planned">
-                        <small class="text-danger" th:if="${#fields.hasErrors('${newReport.planned}')}"
-                               th:errors="${newReport.planned}"></small>
+            <div class="container">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-9">
+                            <h1>Создание экстренной консультации</h1>
+                        </div>
+                        <div class="col-3">
+                            <div class="row" style="margin-top: 0.4em">
+                                <div class="col-6" style="min-width: max-content">
+                                    <form class="row" th:action="@{/}" method="get">
+                                        <button class="btn-sm btn-secondary" type="submit" style="width: 100%">Главная
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-6" style="min-width: max-content; padding-left: 1em">
+                                    <form class="row" th:action="@{/logout}" method="post">
+                                        <button class="btn-sm btn-secondary" type="submit" style="width: 100%">Выйти
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-md-6 mb-2">
-                        <label for="date">Дата и время консультации</label>
-                        <input name="date" type="datetime-local" th:min="${minDate}" th:max="${maxDate}" class="form-control" id="date" required>
-                    </div>
-
                 </div>
+            </div>
 
-                <div class="row">
+            <div class="container">
+                <form enctype="multipart/form-data" th:action="@{/emergency}" method="post" class="needs-validation">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <label for="planned">Плановых консультаций</label>
+                                    <input th:field="${newReport.planned}" th:value="${newReport.planned}" type="number"
+                                           min="0" step="1" class="form-control" id="planned">
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${newReport.planned}')}"
+                                           th:errors="${newReport.planned}"></small>
+                                </div>
 
-                    <div class="col-md-6 mb-2">
-                        <label for="hospital">Лечебное учреждение пациента</label>
-                        <!--TODO сделать отображение названия, а сохранение id-->
-                        <input th:field="${newHospital.name}" list="hospitals" id="hospital" type="text" class="form-control" required/>
-                        <datalist id="hospitals">
-                            <!--/*@thymesVar id="hospital" type="com.practice3.reporter.Entities.Hospital"*/-->
-                            <option th:each="hospital : ${hospitals}"
-                                    th:value="${hospital.name}"></option>
-                        </datalist>
-                        <small class="text-danger" th:if="${#fields.hasErrors('${newHospital.name}')}"
-                               th:errors="${newHospital.name}"></small>
+                                <div class="col-md-6 mb-2">
+                                    <label for="date">Дата и время консультации</label>
+                                    <input name="date" type="datetime-local" th:min="${minDate}" th:max="${maxDate}"
+                                           class="form-control" id="date" required>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-2">
+                                    <label for="hospital">Лечебное учреждение пациента</label>
+                                    <!--TODO сделать отображение названия, а сохранение id-->
+                                    <input th:field="${newHospital.name}" list="hospitals" id="hospital" type="text"
+                                           class="form-control" required/>
+                                    <datalist id="hospitals">
+                                        <!--/*@thymesVar id="hospital" type="com.practice3.reporter.Entities.Hospital"*/-->
+                                        <option th:each="hospital : ${hospitals}"
+                                                th:value="${hospital.name}"></option>
+                                    </datalist>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${newHospital.name}')}"
+                                           th:errors="${newHospital.name}"></small>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="fullName">Координатор</label>
+                                    <select th:field="${newCoordinator.coordinatorId}" id="fullName"
+                                            class="form-control" required>
+                                        <option th:each="coordinator : ${coordinators}"
+                                                th:value="${coordinator.coordinatorId}"
+                                                th:text="${coordinator.getFullName()}">
+                                        </option>
+                                    </select>
+                                    <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.surname}')}"
+                                           th:errors="${newCoordinator.surname}"></small>
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-secondary btn btn-block mb-3 col-12" type="submit" value="Submit">
+                                Сохранить и продолжить
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <label for="fullName">Координатор</label>
-                        <select th:field="${newCoordinator.coordinatorId}"  id="fullName" class="form-control" required>
-                            <option th:each="coordinator : ${coordinators}"
-                                    th:value="${coordinator.coordinatorId}" th:text="${coordinator.getFullName()}">
-                            </option>
-                        </select>
-                            <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.surname}')}"
-                               th:errors="${newCoordinator.surname}"></small>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-secondary btn btn-block mb-3" type="submit" value="Submit">
-                    Сохранить и продолжить
-                </button>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 </body>
 </html>
