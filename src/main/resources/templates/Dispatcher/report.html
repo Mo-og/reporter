@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="../icon.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+
+    <title>Отчёт</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!--Сортировка, поиск по таблице-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table1').DataTable({
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json",
+                },
+                // "bLengthChange": false,
+                "pageLength": 25,
+            });
+        });
+
+        function clickedToDelete(id) {
+            var sured = confirm("Вы уверены, что хотите удалить пользователя №" + id + "? Это действие невозможно отменить!");
+            if (sured) {
+                location.href = "remove_user?id=" + id;
+            }
+        }
+    </script>
+</head>
+<body>
+<table id="table1" class="table table-striped table-hover" style="background-color: rgba(238,238,238,0.85)">
+    <thead class="thead-light">
+    <tr>
+        <th class="text-justify">ID</th>
+        <th class="text-justify">Больница</th>
+        <th class="text-justify">Дата</th>
+        <th class="text-justify">Координатор</th>
+        <th class="text-justify">Консультант</th>
+        <th class="text-justify">Специализация</th>
+        <th class="text-justify">Рекомендация</th>
+        <th class="text-justify">Транспорт</th>
+        <th class="text-justify">Дежурный</th>
+        <th class="text-justify">Специализация дежурного</th>
+        <th class="text-justify">Covid</th>
+        <!--<th style="width: 1em" class="text-justify"></th>
+        <th style="width: 1em" class="text-justify"
+            th:if="${LoggedRole==T(com.practice3.reporter.EnumRole).SUPERUSER}"></th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="consultation : ${list}">
+        <td class="align-middle"><span th:text="${consultation.consultationId}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.hospital.name}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.getDateString()}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.coordinator.getFullName()}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.consultant.name}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.specialization.specializationName}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.recommendation.recommendationName}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.transport.transportName}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.duty.name}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.dutySpecialization.specializationName}"></span></td>
+        <td class="align-middle"><span th:text="${consultation.covid}"></span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

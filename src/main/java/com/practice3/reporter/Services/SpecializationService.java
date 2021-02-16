@@ -39,4 +39,9 @@ public class SpecializationService {
     public boolean existsWithId(long id) {
         return repository.existsById(id);
     }
+
+    public List<Specialization> getAllForDoctorId(long consultantId) {
+        return repository.findAllByConsultants(consultantId);
+    }
+
 }

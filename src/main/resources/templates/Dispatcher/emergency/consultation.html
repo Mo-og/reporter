@@ -60,12 +60,24 @@
 
             <div class="container">
                 <form enctype="multipart/form-data" th:action="@{/consultation}" method="post" class="needs-validation">
+                    <p class="form-control"><label for="coordId">Координатор</label>
+                        <input th:field="${consultation.coordinatorId}" id="coordId">
+                        <label for="hospId">Больница</label>
+                        <input th:field="${consultation.hospitalId}" id="hospId">
+                        <label for="repId">Отчет</label>
+                        <input th:field="${consultation.reportId}" id="repId">
+                        <label for="dateId">Дата</label>
+                        <input th:field="${consultation.date}" id="dateId">
+                        <label for="consultId">Консультант</label>
+                        <input th:field="${consultation.consultantId}" id="consultId">
+                        <label for="dutyId">Дежурный</label>
+                        <input th:field="${consultation.dutyId}" id="dutyId"></p>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-
                                 <div class="col-md-6 mb-2">
-                                    <label for="specialization">Специализация</label>
+                                    <label for="specialization">Специализация консультанта</label>
                                     <input th:field="${newSpecialization.specializationName}" list="specializations"
                                            id="specialization" type="text" class="form-control" required/>
                                     <datalist id="specializations">
@@ -93,7 +105,7 @@
 
                             <div class="row">
 
-                                <div class="col-md-6 mb-2">
+                                <div class="col-md-5 mb-2">
                                     <label for="transport">Транспорт</label>
                                     <input th:field="${newTransport.transportName}" list="transports" id="transport"
                                            type="text"
@@ -107,15 +119,26 @@
                                            th:errors="${newTransport.transportName}"></small>
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <label for="duty">Дежурный консультант</label>
-                                    <input th:field="${newDuty.name}" list="duties" id="duty" class="form-control"/>
-                                    <datalist id="duties">
-                                        <option th:each="duty : ${duties}"
-                                                th:value="${duty.name}"></option>
+                                    <label for="specialization">Специализация дежурного консультанта</label>
+                                    <input name="dutySpecialization" list="dutySpecializations"
+                                           id="dutySpecialization" type="text" class="form-control" required/>
+                                    <datalist id="dutySpecializations">
+                                        <option th:each="specialization : ${dutySpecializations}"
+                                                th:value="${specialization.specializationName}"></option>
                                     </datalist>
-                                    <small class="text-danger" th:if="${#fields.hasErrors('${newDuty.name}')}"
-                                           th:errors="${newDuty.name}"></small>
+                                    <small class="text-danger"
+                                           th:if="${#fields.hasErrors('${newSpecialization.specializationName}')}"
+                                           th:errors="${newSpecialization.specializationName}"></small>
                                 </div>
+                                <div class="col-md-1 mt-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="isCovid">
+                                            Covid
+                                        </label>
+                                        <input class="form-check-input" type="checkbox" id="isCovid" name="isCovid">
+                                    </div>
+                                </div>
+
 
                             </div>
 

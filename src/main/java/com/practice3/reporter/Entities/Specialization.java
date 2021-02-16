@@ -21,4 +21,8 @@ public class Specialization {
 
     @ManyToMany(mappedBy = "specializations")
     private List<Consultant> consultants;
+
+    public Specialization(String specialization) {
+        this.specializationName=specialization;
+    }
 }

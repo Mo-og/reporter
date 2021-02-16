@@ -95,21 +95,38 @@
                                            th:errors="${newHospital.name}"></small>
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <label for="fullName">Координатор</label>
-                                    <select th:field="${newCoordinator.coordinatorId}" id="fullName"
-                                            class="form-control" required>
+                                    <label for="coordinatorId">Координатор</label>
+                                    <select name="coordinatorId" id="coordinatorId"
+                                           class="form-control" required>
                                         <option th:each="coordinator : ${coordinators}"
                                                 th:value="${coordinator.coordinatorId}"
-                                                th:text="${coordinator.getFullName()}">
+                                                th:text="${coordinator.getFullName()}"
+                                                th:selected="${coordinator.coordinatorId==LoggedId}">
                                         </option>
                                     </select>
-                                    <small class="text-danger" th:if="${#fields.hasErrors('${newCoordinator.surname}')}"
-                                           th:errors="${newCoordinator.surname}"></small>
                                 </div>
 
+                                <div class="col-md-6 mb-2">
+                                    <label for="consultant">Консультант</label>
+                                    <input name="consultant" list="consultants" id="consultant" type="text"
+                                           class="form-control" required/>
+                                    <datalist id="consultants">
+                                        <!--/*@thymesVar id="consultant" type="com.practice3.reporter.Entities.Consultant"*/-->
+                                        <option th:each="consultant : ${consultants}"
+                                                th:value="${consultant.name}"></option>
+                                    </datalist>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="duty">Дежурный консультант</label>
+                                    <input name="duty" list="duties" id="duty" class="form-control"/>
+                                    <datalist id="duties">
+                                        <option th:each="duty : ${consultants}"
+                                                th:value="${duty.name}"></option>
+                                    </datalist>
+                                </div>
                             </div>
 
-                            <button class="btn btn-secondary btn btn-block mb-3 col-12" type="submit" value="Submit">
+                            <button class="btn btn-secondary btn btn-block mb-3 mt-2 col-12" type="submit" value="Submit">
                                 Сохранить и продолжить
                             </button>
                         </div>

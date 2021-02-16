@@ -1,9 +1,11 @@
 package com.practice3.reporter.Entities;
 
+import com.practice3.reporter.ConsultationSkeleton;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -56,4 +58,22 @@ public class Consultation {
 
     boolean isCovid;
 
+    public Consultation(Date date, Hospital hospital, Report report, Coordinator coordinator, Consultant consultant, Specialization specialization, Recommendation recommendation, Transport transport, Consultant duty, Specialization dutySpecialization, boolean isCovid) {
+        this.date = date;
+        this.hospital = hospital;
+        this.report = report;
+        this.coordinator = coordinator;
+        this.consultant = consultant;
+        this.specialization = specialization;
+        this.recommendation = recommendation;
+        this.transport = transport;
+        this.duty = duty;
+        this.dutySpecialization = dutySpecialization;
+        this.isCovid = isCovid;
+    }
+
+    private final static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    public String getDateString(){
+       return  formatter.format(date);
+    }
 }

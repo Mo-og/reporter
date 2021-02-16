@@ -6,18 +6,19 @@
 
     <link rel="shortcut icon" href="../icon.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Title</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <style>
-        .animate__animated:hover{
+        .animate__animated:hover {
             animation: pulse;
             animation-duration: 0.5s;
         }
-        button:hover{
+
+        button:hover {
             box-shadow: rgba(93, 93, 93, 0.6) 1px 1px 5px 2px;
         }
     </style>
@@ -30,15 +31,18 @@
             <h1><a th:href="@{/login}">
                 <button type="button" class="btn-secondary">Войти</button>
             </a></h1>
-            <h1 ><a th:href="@{/users}">
-                <button type="button"  class="btn-light">Пользователи</button>
+            <h1><a th:href="@{/users}">
+                <button type="button" class="btn-light">Пользователи</button>
             </a></h1>
             <h1><a th:href="@{/emergency}">
                 <button type="button" class="animate__animated btn-light mb-2">Экстренная консультация</button>
             </a></h1>
             <button type="submit" class="btn btn-outline-secondary mb-2">Выйти</button>
+
             <a th:href="@{/supersecretrequest7355}" style="padding-bottom: 1em">
-                <button type="button" class="btn btn-outline-secondary" style="width: auto">Восстановить суперпользователя</button>
+                <button type="button" class="btn btn-outline-secondary  mb-2" style="width: auto">Восстановить
+                    суперпользователя
+                </button>
             </a>
             <div style="padding-top: 1em"><h2>User: superuser</h2>
                 <h2>Pass: 74553211</h2></div>
