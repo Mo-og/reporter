@@ -60,7 +60,7 @@
 
             <div class="container">
                 <form enctype="multipart/form-data" th:action="@{/consultation}" method="post" class="needs-validation">
-                    <p class="form-control"><label for="coordId">Координатор</label>
+                    <p hidden class="form-control"><label for="coordId">Координатор</label>
                         <input th:field="${consultation.coordinatorId}" id="coordId">
                         <label for="hospId">Больница</label>
                         <input th:field="${consultation.hospitalId}" id="hospId">
@@ -119,7 +119,7 @@
                                            th:errors="${newTransport.transportName}"></small>
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <label for="specialization">Специализация дежурного консультанта</label>
+                                    <label for="dutySpecialization">Специализация дежурного консультанта</label>
                                     <input name="dutySpecialization" list="dutySpecializations"
                                            id="dutySpecialization" type="text" class="form-control" required/>
                                     <datalist id="dutySpecializations">
