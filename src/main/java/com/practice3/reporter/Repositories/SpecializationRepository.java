@@ -9,12 +9,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SpecializationRepository extends JpaRepository<Specialization, Long> {
-    Specialization findSpecializationBySpecializationName(String name);
+    Specialization findFirstBySpecializationName(String name);
 
-    @Query(value = "SELECT * FROM reporter.public.specializations s " +
-            "RIGHT JOIN reporter.public.consultants_specializations cs " +
+    @Query(value = "SELECT * FROM d6qguieh1qcv8s.public.specializations s " +
+            "RIGHT JOIN d6qguieh1qcv8s.public.consultants_specializations cs " +
             "On s.specialization_id = cs.specializations_specialization_id " +
             "Where cs.consultants_consultant_id = ?1 ",
             nativeQuery = true)
-    List<Specialization> findAllByConsultants(Long id);
+    List<Specialization> findAllByConsultantsd(Long id);
 }

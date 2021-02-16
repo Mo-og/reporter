@@ -17,7 +17,7 @@ public class HospitalService {
     }
 
     public Hospital getByName(String name){
-        return repository.findHospitalByName(name);
+        return repository.findFirstByName(name);
     }
 
     public void save(Hospital specialization) {

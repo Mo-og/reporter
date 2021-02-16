@@ -1,6 +1,5 @@
 package com.practice3.reporter.Services;
 
-import com.practice3.reporter.Entities.Coordinator;
 import com.practice3.reporter.Repositories.UserRepository;
 import com.practice3.reporter.Entities.User;
 import com.practice3.reporter.Security.MyUserDetails;
@@ -40,7 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void removeByUsername(String username) {
-        Optional<User> userOptional = repository.findByUsername(username);
+        Optional<User> userOptional = repository.findFirstByUsername(username);
         userOptional.ifPresent(user -> repository.delete(user));
     }
 
@@ -49,10 +48,10 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean existsWithUsername(String username) {
-        return repository.findByUsername(username).isPresent();
+        return repository.findFirstByUsername(username).isPresent();
     }
     public User getByUsername(String username){
-        return repository.findByUsername(username).orElse(null);
+        return repository.findFirstByUsername(username).orElse(null);
     }
 
     public void remove(User user){
@@ -61,7 +60,7 @@ public class UserService implements UserDetailsService {
 
     @Override //для авторизации Spring Security
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = repository.findByUsername(username);
+        Optional<User> user = repository.findFirstByUsername(username);
         System.out.println(user);
         user.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         return user.map(MyUserDetails::new).get();

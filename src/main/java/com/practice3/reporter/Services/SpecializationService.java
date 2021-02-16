@@ -29,7 +29,7 @@ public class SpecializationService {
     }
 
     public Specialization getSpecializationByName(String name) {
-        return repository.findSpecializationBySpecializationName(name);
+        return repository.findFirstBySpecializationName(name);
     }
 
     public void removeById(long id) {
@@ -41,7 +41,7 @@ public class SpecializationService {
     }
 
     public List<Specialization> getAllForDoctorId(long consultantId) {
-        return repository.findAllByConsultants(consultantId);
+        return repository.findAllByConsultantsd(consultantId);
     }
 
 }

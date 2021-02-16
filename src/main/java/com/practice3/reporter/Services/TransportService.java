@@ -29,7 +29,7 @@ public class TransportService {
     }
 
     public Transport getTransportByName(String name) {
-        return repository.findTransportByTransportName(name);
+        return repository.findFirstByTransportName(name);
     }
 
     public void removeById(long id) {

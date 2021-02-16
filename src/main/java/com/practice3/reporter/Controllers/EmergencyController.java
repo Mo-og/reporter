@@ -160,8 +160,18 @@ public class EmergencyController {
 //        System.out.println("\n\nCONSULTATION: "+consultation+"\n\n");
         model.addAttribute("consultation", skeleton);
         model.addAttribute("newSpecialization", new Specialization());
-        model.addAttribute("specializations", specializationService.getAllForDoctorId(skeleton.getConsultantId()));
-        model.addAttribute("dutySpecializations", specializationService.getAllForDoctorId(skeleton.getDutyId()));
+        try{
+            model.addAttribute("specializations", specializationService.getAllForDoctorId(skeleton.getConsultantId()));
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("specializations", specializationService.getAll());
+        }
+        try{
+            model.addAttribute("dutySpecializations", specializationService.getAllForDoctorId(skeleton.getDutyId()));
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("dutySpecializations", specializationService.getAll());
+        }
         model.addAttribute("newRecommendation", new Recommendation());
         model.addAttribute("recommendations", recommendationService.getAll());
         model.addAttribute("newTransport", new Transport());

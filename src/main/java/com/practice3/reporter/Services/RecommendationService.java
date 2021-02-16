@@ -29,7 +29,7 @@ public class RecommendationService {
     }
 
     public Recommendation getRecommendationByName(String name) {
-        return repository.findRecommendationByRecommendationName(name);
+        return repository.findFirstByRecommendationName(name);
     }
 
     public void removeById(long id) {

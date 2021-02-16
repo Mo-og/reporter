@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -29,7 +30,7 @@ public class Consultant {
     private List<Consultation> dutyConsultations;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Specialization> specializations;
+    private List<Specialization> specializations=new ArrayList<>();
 
 
     public void addSpecialization(Specialization specialization) {
