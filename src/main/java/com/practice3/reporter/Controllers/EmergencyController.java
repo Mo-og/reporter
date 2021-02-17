@@ -196,12 +196,18 @@ public class EmergencyController {
         skeleton.setSpecializationId(dbSpecialization.getSpecializationId());
         if (specializationService.getSpecializationByName(dutySpecialization) == null) {
             specializationService.save(new Specialization(dutySpecialization));
+            System.out.println("\n\nSAVED NEW DUTY_SPEC");
         }
-        Specialization dbDutySpecialization=specializationService.getSpecializationByName(specialization.getSpecializationName());
+        Specialization dbDutySpecialization=specializationService.getSpecializationByName(dutySpecialization);
         skeleton.setDutySpecializationId(dbDutySpecialization.getSpecializationId());
         Consultant dbConsultant=consultantService.getById(skeleton.getConsultantId());
         dbConsultant.addSpecialization(dbSpecialization);
         consultantService.save(dbConsultant);
+        Consultant dbDuty=consultantService.getById(skeleton.getDutyId());
+        dbConsultant.addSpecialization(dbDutySpecialization);
+        consultantService.save(dbDuty);
+        System.out.println("\n\nSAVED DUTY AS"+dbDuty);
+
         if (recommendationService.getRecommendationByName(recommendation.getRecommendationName()) == null)
             recommendationService.save(recommendation);
         skeleton.setRecommendationId(recommendationService.getRecommendationByName(recommendation.getRecommendationName()).getRecommendationId());
