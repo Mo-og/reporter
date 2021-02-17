@@ -204,10 +204,8 @@ public class EmergencyController {
         dbConsultant.addSpecialization(dbSpecialization);
         consultantService.save(dbConsultant);
         Consultant dbDuty=consultantService.getById(skeleton.getDutyId());
-        dbConsultant.addSpecialization(dbDutySpecialization);
+        dbDuty.addSpecialization(dbDutySpecialization);
         consultantService.save(dbDuty);
-        System.out.println("\n\nSAVED DUTY AS"+dbDuty);
-
         if (recommendationService.getRecommendationByName(recommendation.getRecommendationName()) == null)
             recommendationService.save(recommendation);
         skeleton.setRecommendationId(recommendationService.getRecommendationByName(recommendation.getRecommendationName()).getRecommendationId());
