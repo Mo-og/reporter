@@ -121,7 +121,7 @@
                                 <div class="col-md-6 mb-2">
                                     <label for="dutySpecialization">Специализация дежурного консультанта</label>
                                     <input name="dutySpecialization" list="dutySpecializations"
-                                           id="dutySpecialization" type="text" class="form-control" required/>
+                                           id="dutySpecialization" type="text" class="form-control"/>
                                     <datalist id="dutySpecializations">
                                         <option th:each="specialization : ${dutySpecializations}"
                                                 th:value="${specialization.specializationName}"></option>

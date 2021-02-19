@@ -64,8 +64,8 @@
         <td class="align-middle"><span th:text="${consultation.specialization.specializationName}"></span></td>
         <td class="align-middle"><span th:text="${consultation.recommendation.recommendationName}"></span></td>
         <td class="align-middle"><span th:text="${consultation.transport.transportName}"></span></td>
-        <td class="align-middle"><span th:text="${consultation.duty.name}"></span></td>
-        <td class="align-middle"><span th:text="${consultation.dutySpecialization.specializationName}"></span></td>
+        <td class="align-middle"><span th:if="${consultation.duty} != null" th:text="${consultation.duty.name}"></span></td>
+        <td class="align-middle"><span th:if="${consultation.dutySpecialization} != null" th:text="${consultation.dutySpecialization.specializationName}"></span></td>
         <td class="align-middle"><span th:text="${consultation.covid}"></span></td>
     </tr>
     </tbody>

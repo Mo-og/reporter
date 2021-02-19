@@ -127,7 +127,7 @@ public class EmergencyController {
             consultantService.save(new Consultant(consultant));
         }
         skeleton.setConsultantId(consultantService.getConsultantByName(consultant).getConsultantId());
-        if (consultantService.getConsultantByName(duty) == null)
+        if (consultantService.getConsultantByName(duty) == null && !duty.isEmpty())
             consultantService.save(new Consultant(duty));
         skeleton.setDutyId(consultantService.getConsultantByName(duty).getConsultantId());
         Report recentReport = reportService.getRecent();
@@ -194,7 +194,7 @@ public class EmergencyController {
         }
         Specialization dbSpecialization=specializationService.getSpecializationByName(specialization.getSpecializationName());
         skeleton.setSpecializationId(dbSpecialization.getSpecializationId());
-        if (specializationService.getSpecializationByName(dutySpecialization) == null) {
+        if (specializationService.getSpecializationByName(dutySpecialization) == null && !dutySpecialization.isEmpty()) {
             specializationService.save(new Specialization(dutySpecialization));
             System.out.println("\n\nSAVED NEW DUTY_SPEC");
         }
